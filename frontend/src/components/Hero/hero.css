@@ -180,8 +180,7 @@
     .hero-content__bottom {
         display: flex;
         align-items: flex-end;
-        justify-content: space-between;
-        gap: 2rem;
+        justify-content: flex-start;
     }
 
     .hero-headline {
@@ -195,21 +194,7 @@
     }
 
     .hero-copy {
-        max-width: none;
-        width: auto;
-        align-items: flex-start;
-    }
-
-    .hero-section .hero-cta {
-        background: var(--base-300);
-        color: var(--base-100);
-        border-color: var(--base-300);
-    }
-
-    .hero-section .hero-cta:hover {
-        background: var(--accent);
-        border-color: var(--accent);
-        color: var(--base-300);
+        display: none;
     }
 }
 
