@@ -1,101 +1,136 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState, useCallback, Fragment } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import { useNavigate } from 'react-router-dom';
 import { FaArrowDown, FaArrowLeft } from 'react-icons/fa';
 import interiorBg from '../../assets/interior.jpg';
 import exteriorBg from '../../assets/exterior.jpg';
+import gardenBg from '../../assets/landscape-design.jpg';
+import RequestCta from '../RequestCta/RequestCta';
 import './services.css';
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+
+const panels = [
+    {
+        id: 'interior',
+        number: '01',
+        title: 'تصميم داخلي',
+        desc: 'تصاميم داخلية فاخرة تجمع بين الأناقة والوظيفة، لخلق مساحات معيشية مريحة تعكس ذوقكم وشخصيتكم الفريدة.',
+        image: interiorBg,
+        imageAlt: 'تصميم داخلي',
+        filter: 'interior',
+    },
+    {
+        id: 'exterior',
+        number: '02',
+        title: 'تصميم خارجي',
+        desc: 'واجهات معمارية مبتكرة تعكس الهوية البصرية وتندمج بانسجام مع البيئة المحيطة، بأناقة تصمد أمام الزمن.',
+        image: exteriorBg,
+        imageAlt: 'تصميم خارجي',
+        filter: 'exterior',
+    },
+    {
+        id: 'garden',
+        number: '03',
+        title: 'تصميم حدائق',
+        desc: 'حدائق ومساحات خارجية تُصمَّم كامتداد للبيت: هوية نباتية متزنة، مسارات هادئة، وإحساس بالفخامة في الهواء الطلق.',
+        image: gardenBg,
+        imageAlt: 'تصميم حدائق',
+        filter: 'garden',
+    },
+];
 
 const Services = () => {
-    const pageRef = useRef(null);
+    const sectionRef = useRef(null);
+    const panelRefs = useRef([]);
+    const [activeIndex, setActiveIndex] = useState(0);
+    const [navVisible, setNavVisible] = useState(false);
     const navigate = useNavigate();
 
+    const goToPanel = useCallback((index) => {
+        const panel = panelRefs.current[index];
+        if (!panel) return;
+
+        gsap.to(window, {
+            scrollTo: { y: panel, autoKill: true },
+            duration: 0.65,
+            ease: 'power2.inOut',
+            overwrite: true,
+        });
+    }, []);
+
     useEffect(() => {
+        const section = sectionRef.current;
+        if (!section) return undefined;
+
+        const triggers = [];
+
         const ctx = gsap.context(() => {
-            // ✅ الحالة الأولية الثابتة (لا تعتمد على أي ScrollTrigger)
-            // autoAlpha بدل opacity: بيتحكم بـ opacity + visibility معًا،
-            // فالشاشة المخفية تصير فعليًا غير مرئية وغير قابلة للتفاعل،
-            // وما تقدر تتراكب بصريًا فوق الشاشة الظاهرة.
-            gsap.set(".screen-0", { autoAlpha: 1, zIndex: 2 });
-            gsap.set(".screen-0 .service-img", { scale: 1.05 });
-            gsap.set(".screen-0 .service-title", { yPercent: 110, opacity: 0 });
-            gsap.set(".screen-0 .service-number, .screen-0 .service-desc, .screen-0 .discover-btn", { y: 40, opacity: 0 });
-            gsap.set(".screen-0 .service-scroll-hint", { opacity: 0 });
+            panelRefs.current.forEach((panel, index) => {
+                if (!panel) return;
 
-            gsap.set(".screen-1", { autoAlpha: 0, zIndex: 1 });
-            gsap.set(".screen-1 .service-img", { scale: 1.3 });
-            gsap.set(".screen-1 .service-title", { y: 40, yPercent: 110, opacity: 0 });
-            gsap.set(".screen-1 .service-number, .screen-1 .service-desc, .screen-1 .discover-btn", { y: 40, opacity: 0 });
+                const img = panel.querySelector('.services-panel__img');
+                const contentItems = panel.querySelectorAll('.services-panel__content > *');
 
-            // ✅ تايم لاين واحد فقط، مربوط بنفس الـ ScrollTrigger المثبّت (pin)
-            // كل شي - دخول screen-0، الانتقال لـ screen-1، وظهور محتواه - بيصير بنفس الحركة المتزامنة مع السكرول
-            const tl = gsap.timeline({
-                scrollTrigger: {
-                    trigger: ".services-section",
-                    start: "top top",
-                    end: "+=250%",
-                    scrub: 1,
-                    pin: true,
-                    // إذا تغيّر ارتفاع الصفحة (مثلاً بعد تحميل الصور) بتعاد حسابات
-                    // الـ start/end تلقائيًا بدل ما تضل محفوظة بقيم قديمة خاطئة
-                    invalidateOnRefresh: true,
+                gsap.from(contentItems, {
+                    y: 32,
+                    duration: 0.75,
+                    stagger: 0.07,
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: panel,
+                        start: 'top 75%',
+                        toggleActions: 'play none none none',
+                    },
+                });
+
+                if (img) {
+                    gsap.fromTo(
+                        img,
+                        { scale: 1.06 },
+                        {
+                            scale: 1,
+                            ease: 'none',
+                            scrollTrigger: {
+                                trigger: panel,
+                                start: 'top bottom',
+                                end: 'bottom top',
+                                scrub: true,
+                            },
+                        }
+                    );
                 }
+
+                const st = ScrollTrigger.create({
+                    trigger: panel,
+                    start: 'top 55%',
+                    end: 'bottom 45%',
+                    onEnter: () => setActiveIndex(index),
+                    onEnterBack: () => setActiveIndex(index),
+                });
+                triggers.push(st);
             });
 
-            tl
-                // === دخول screen-0 (تصميم داخلي) - أول شي بيصير فور ما يبدأ الـ pin ===
-                .to(".screen-0 .service-number", { y: 0, opacity: 1, duration: 0.5, ease: "power3.out" }, 0)
-                .to(".screen-0 .service-title", { y: 0, yPercent: 0, opacity: 1, duration: 0.6, ease: "power4.out" }, 0.05)
-                .to(".screen-0 .service-desc", { y: 0, opacity: 1, duration: 0.5, ease: "power3.out" }, 0.2)
-                .to(".screen-0 .discover-btn", { y: 0, opacity: 1, duration: 0.4, ease: "power3.out" }, 0.3)
-                .to(".screen-0 .service-scroll-hint", { opacity: 1, duration: 0.5, ease: "power2.out" }, 0.35)
-
-                // === استقرار على screen-0 ثم بدء التكبير التمهيدي لصورتها ===
-                .to(".screen-0 .service-img", { scale: 1.2, duration: 1.4, ease: "power2.inOut" }, 0.6)
-
-                // === الانتقال من interior إلى exterior ===
-                // نرفع z-index لـ screen-1 لحظة ما تبدأ تظهر فوق، ونخفّض screen-0
-                // بعد ما تختفي بالكامل — يضمن ترتيب الرسم الصحيح بأي حالة
-                .set(".screen-1", { zIndex: 3 }, 2.2)
-                .to(".screen-0", { autoAlpha: 0, duration: 0.9, ease: "power2.inOut" }, 2.2)
-                .to(".screen-1", { autoAlpha: 1, duration: 0.9, ease: "power2.inOut" }, 2.2)
-                .set(".screen-0", { zIndex: 0 }, 3.1)
-                .to(".screen-1 .service-img", { scale: 1.05, duration: 1.6, ease: "power2.inOut" }, 2.3)
-
-                // === ظهور عناصر screen-1 (تصميم خارجي) ===
-                .to(".screen-1 .service-number", { y: 0, opacity: 1, duration: 0.7, ease: "power3.out" }, 2.6)
-                .to(".screen-1 .service-title", { y: 0, yPercent: 0, opacity: 1, duration: 1, ease: "power4.out" }, 2.7)
-                .to(".screen-1 .service-desc", { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" }, 2.95)
-                .to(".screen-1 .discover-btn", { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" }, 3.1)
-
-                // === Progress indicator ===
-                .to(".progress-bar", { scaleX: 1, duration: 4, ease: "none" }, 0)
-                .to(".progress-dot-2", { width: "1.6rem", opacity: 1, duration: 0.4 }, 2.2)
-                .to(".progress-dot-1", { width: "0.45rem", opacity: 0.45, duration: 0.4 }, 2.2);
-
-            // ✅ شبكة أمان: إذا الصور تحمّلت بعد ما GSAP حسب مواقع الـ pin،
-            // نعيد حساب ScrollTrigger عشان ما يضل شغال على قياسات قديمة
-            const images = pageRef.current.querySelectorAll(".service-img");
-            let loadedCount = 0;
-            const handleImageLoad = () => {
-                loadedCount += 1;
-                if (loadedCount === images.length) {
-                    ScrollTrigger.refresh();
-                }
-            };
-            images.forEach((img) => {
-                if (img.complete) {
-                    handleImageLoad();
-                } else {
-                    img.addEventListener("load", handleImageLoad, { once: true });
-                }
+            const sectionSt = ScrollTrigger.create({
+                trigger: section,
+                start: 'top bottom',
+                end: 'bottom top',
+                onEnter: () => setNavVisible(true),
+                onLeave: () => setNavVisible(false),
+                onEnterBack: () => setNavVisible(true),
+                onLeaveBack: () => setNavVisible(false),
             });
-        }, pageRef);
+            triggers.push(sectionSt);
 
-        return () => ctx.revert();
+            ScrollTrigger.refresh();
+        }, section);
+
+        return () => {
+            triggers.forEach((st) => st.kill());
+            ctx.revert();
+        };
     }, []);
 
     const handleExploreClick = (category) => {
@@ -103,59 +138,88 @@ const Services = () => {
     };
 
     return (
-        <section className="services-section" ref={pageRef}>
-            {/* Interior Design - يظهر أولاً */}
-            <div className="services-screen screen-0">
-                <img src={interiorBg} alt="تصميم داخلي" className="service-img" />
-                <div className="service-overlay" />
-                <div className="service-inner">
-                    <span className="service-number">01</span>
-                    <h2 className="service-title">تصميم داخلي</h2>
-                    <p className="service-desc">
-                        تصاميم داخلية فاخرة تجمع بين الأناقة والوظيفة، لخلق مساحات معيشية مريحة تعكس ذوقكم وشخصيتكم الفريدة.
-                    </p>
-                    <button
-                        onClick={() => handleExploreClick('interior')}
-                        className="discover-btn"
+        <section className="services-section" ref={sectionRef} aria-label="خدمات التصميم">
+            {panels.map((panel, index) => (
+                <Fragment key={panel.id}>
+                    {index > 0 && (
+                        <div className="services-divider" aria-hidden="true">
+                            <span className="services-divider__line" />
+                            <span className="services-divider__dot" />
+                            <span className="services-divider__line" />
+                        </div>
+                    )}
+
+                    <article
+                        id={`service-${panel.id}`}
+                        ref={(el) => {
+                            panelRefs.current[index] = el;
+                        }}
+                        className={`services-panel services-panel--${panel.id}`}
                     >
-                        اكتشف المزيد
-                        <FaArrowLeft className="text-sm" />
-                    </button>
+                        <div className="services-panel__frame">
+                            <img
+                                src={panel.image}
+                                alt={panel.imageAlt}
+                                className="services-panel__img"
+                                loading={index === 0 ? 'eager' : 'lazy'}
+                            />
+                            <div className="services-panel__overlay" />
+
+                            <div className="services-panel__content">
+                                <span className="services-panel__number">{panel.number}</span>
+                                <h2 className="services-panel__title">{panel.title}</h2>
+                                <p className="services-panel__desc">{panel.desc}</p>
+                                <div className="services-panel__actions">
+                                    <button
+                                        type="button"
+                                        onClick={() => handleExploreClick(panel.filter)}
+                                        className="services-panel__btn"
+                                    >
+                                        اكتشف المزيد
+                                        <FaArrowLeft className="text-sm" aria-hidden="true" />
+                                    </button>
+                                    <RequestCta
+                                        service={panel.id}
+                                        label="اطلب هذه الخدمة"
+                                        theme="light"
+                                    />
+                                </div>
+                            </div>
+
+                            {index === 0 && (
+                                <span className="services-panel__hint">
+                                    مرر للأسفل
+                                    <FaArrowDown aria-hidden="true" />
+                                </span>
+                            )}
+                        </div>
+                    </article>
+                </Fragment>
+            ))}
+
+            <nav
+                className={`services-nav${navVisible ? ' services-nav--visible' : ''}`}
+                aria-label="التنقل بين الخدمات"
+            >
+                <div className="services-nav__dots">
+                    {panels.map((panel, index) => (
+                        <button
+                            key={panel.id}
+                            type="button"
+                            className={`services-nav__dot${activeIndex === index ? ' services-nav__dot--active' : ''}`}
+                            onClick={() => goToPanel(index)}
+                            aria-label={panel.title}
+                            aria-current={activeIndex === index ? 'true' : undefined}
+                        />
+                    ))}
                 </div>
-                <span className="service-scroll-hint">
-                    مرر للأسفل
-                    <FaArrowDown />
-                </span>
-            </div>
-
-            {/* Exterior Design - يظهر بعد التمرير */}
-            <div className="services-screen screen-1">
-                <img src={exteriorBg} alt="تصميم خارجي" className="service-img" />
-                <div className="service-overlay" />
-                <div className="service-inner">
-                    <span className="service-number">02</span>
-                    <h2 className="service-title">تصميم خارجي</h2>
-                    <p className="service-desc">
-                        واجهات معمارية مبتكرة تعكس الهوية البصرية وتندمج بانسجام مع البيئة المحيطة، بأناقة تصمد أمام الزمن.
-                    </p>
-                    <button
-                        onClick={() => handleExploreClick('exterior')}
-                        className="discover-btn"
-                    >
-                        اكتشف المزيد
-                        <FaArrowLeft className="text-sm" />
-                    </button>
+                <div className="services-nav__bar" aria-hidden="true">
+                    <span
+                        className="services-nav__bar-fill"
+                        style={{ transform: `scaleX(${(activeIndex + 1) / panels.length})` }}
+                    />
                 </div>
-            </div>
-
-            {/* Progress indicator */}
-            <div className="progress-indicator">
-                <span className="progress-dot progress-dot-1" />
-                <span className="progress-dot progress-dot-2" />
-            </div>
-
-            {/* Progress bar */}
-            <div className="progress-bar" />
+            </nav>
         </section>
     );
 };

@@ -192,7 +192,7 @@ const Projects = () => {
           <span className="projects-header__eyebrow" dir="ltr">
             Our Portfolio
           </span>
-          <h1 className="projects-header__title">معرض أعمالنا</h1>
+          <h1 className="projects-header__title">معرض أعمالي</h1>
           <p className="projects-header__subtitle">
             مجموعة مختارة من مشاريعنا الداخلية والخارجية، حيث يلتقي التصميم
             بالتفاصيل الدقيقة لصنع مساحات استثنائية

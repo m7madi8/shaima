@@ -5,6 +5,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { FiLinkedin, FiInstagram, FiTwitter } from "react-icons/fi";
 import menuVisualImg from "../assets/warda_dabbah-20260805-0001.jpg";
+import { BRAND_NAME_AR } from "../constants/brand";
 import "./menu.css";
 
 gsap.registerPlugin(useGSAP);
@@ -15,8 +16,8 @@ const navItems = [
   { label: "المعرض", path: "/projects" },
   { label: "من نحن", path: "/about" },
   { label: "الخدمات", path: "/services" },
-  { label: "الخريطة", path: "/map" },
   { label: "تواصل معنا", path: "/contact" },
+  { label: "طلب الخدمة", path: "/request" },
 ];
 
 const Menu = () => {
@@ -46,6 +47,13 @@ const Menu = () => {
   const handleOverlayClick = (e) => {
     if (e.target === e.currentTarget) closeMenu();
   };
+
+  // إبلاغ المكوّنات الأخرى (مثل زر الحجز) بتغيّر حالة القائمة
+  useEffect(() => {
+    window.dispatchEvent(
+      new CustomEvent("menu:toggle", { detail: { isOpen } })
+    );
+  }, [isOpen]);
 
   // إغلاق عبر مفتاح Escape
   useEffect(() => {
@@ -93,8 +101,8 @@ const Menu = () => {
         )
         .fromTo(
           ".menu-visual__img",
-          { scale: 1.08, opacity: 0 },
-          { scale: 1, opacity: 1, duration: 1, ease: "power3.out" },
+          { scale: 1.05 },
+          { scale: 1, duration: 0.9, ease: "power3.out" },
           "-=0.6"
         )
         .fromTo(
@@ -181,8 +189,8 @@ const Menu = () => {
                   </a>
                 </div>
                 <p className="menu-footer__text">
-                  شريككم الهندسي الموثوق لتحويل أفكاركم إلى مخططات ومشاريع
-                  متكاملة
+                  مصممة مستقلة موثوقة لتحويل أفكاركم إلى مساحات
+                  تعكس ذوقكم وشخصيتكم
                 </p>
               </div>
             </nav>
@@ -192,7 +200,7 @@ const Menu = () => {
               <div className="menu-visual__frame">
                 <img
                   src={menuVisualImg}
-                  alt="أعمالنا الهندسية"
+                  alt={`أعمال ${BRAND_NAME_AR}`}
                   className="menu-visual__img"
                 />
                 <div className="menu-visual__overlay" />

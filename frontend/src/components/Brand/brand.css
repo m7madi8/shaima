@@ -27,19 +27,19 @@
 }
 
 .brand-logo--light .brand-logo__name {
-    color: #2d2a26;
+    color: var(--base-300);
 }
 
 .brand-logo--light .brand-logo__tagline {
-    color: #a6947c;
+    color: var(--terracotta);
 }
 
 .brand-logo--dark .brand-logo__name {
-    color: #ffffff;
+    color: var(--base-100);
 }
 
 .brand-logo--dark .brand-logo__tagline {
-    color: #d1d1d1;
+    color: var(--accent);
 }
 
 .brand-logo--sm .brand-logo__name {
@@ -87,7 +87,59 @@
     text-align: right;
 }
 
+.brand-logo--image {
+    align-items: center;
+}
+
+.brand-logo__image {
+    display: block;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+}
+
+.brand-logo--image .brand-logo__name {
+    margin-top: 0.65rem;
+}
+
+.brand-logo--image.brand-logo--align-end .brand-logo__name,
+.brand-logo--image.brand-logo--align-end .brand-logo__tagline {
+    text-align: right;
+}
+
+.brand-logo--image.brand-logo--sm .brand-logo__image {
+    height: 2.75rem;
+}
+
+.brand-logo--image.brand-logo--md .brand-logo__image {
+    height: 3.75rem;
+}
+
+.brand-logo--image.brand-logo--lg .brand-logo__image {
+    height: clamp(3.5rem, 8vw, 5.5rem);
+}
+
+.brand-logo--image.brand-logo--hero .brand-logo__image {
+    height: clamp(5rem, 14vw, 10rem);
+}
+
+.brand-logo--image.brand-logo--xl .brand-logo__image {
+    height: clamp(4rem, 12vw, 7.5rem);
+}
+
+.brand-logo--image.brand-logo--align-end {
+    align-items: flex-end;
+}
+
 @media (max-width: 1023px) {
+    .brand-logo--image.brand-logo--hero .brand-logo__image {
+        height: clamp(4rem, 18vw, 6.5rem);
+    }
+
+    .brand-logo--image.brand-logo--xl .brand-logo__image {
+        height: clamp(3rem, 14vw, 5rem);
+    }
+
     .brand-logo--xl .brand-logo__name {
         font-size: clamp(1.7rem, 8vw, 3.2rem);
         letter-spacing: 0.08em;

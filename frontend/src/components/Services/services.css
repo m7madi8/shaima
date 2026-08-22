@@ -1,69 +1,90 @@
+/* ============================================
+   Services — interior / exterior panels
+   تمرير طبيعي بدون pin — أخف وأسرع
+   ============================================ */
+
 .services-section {
     position: relative;
-    height: 100vh;
-    height: 100svh;
-    overflow: hidden;
     background-color: var(--base-100);
+    padding: 0.625rem;
 }
 
-.services-screen {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
+.services-panel {
+    position: relative;
+}
+
+.services-panel__frame {
+    position: relative;
+    min-height: calc(100svh - 1.25rem);
     overflow: hidden;
+    border-radius: 2rem;
+    display: flex;
+    align-items: flex-end;
+    background-color: var(--base-200);
+    box-shadow: 0 20px 50px -24px color-mix(in srgb, var(--base-300) 18%, transparent);
 }
 
-/* إضافة opacity/visibility/z-index صريحة لكل شاشة — GSAP بيتحكم فيهم بعد
-   الميونت عبر autoAlpha، بس هاي القيم الافتراضية بتضمن سلوك صحيح حتى
-   قبل ما JS يشتغل (أول رسمة بالمتصفح) */
-.screen-0 {
-    opacity: 1;
-    visibility: visible;
-    z-index: 2;
+.services-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.85rem;
+    padding: 1rem 2.5rem;
 }
 
-.screen-1 {
-    opacity: 0;
-    visibility: hidden;
-    z-index: 1;
-    /* الشاشة المخفية ما لازم تستقبل أي تفاعل ولا تتراكب فوق الظاهرة */
-    pointer-events: none;
+.services-divider__line {
+    flex: 1;
+    max-width: 8rem;
+    height: 1px;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        color-mix(in srgb, var(--accent) 45%, transparent) 50%,
+        transparent 100%
+    );
 }
 
-.service-img {
+.services-divider__dot {
+    width: 0.35rem;
+    height: 0.35rem;
+    border-radius: 999px;
+    background: var(--accent);
+    opacity: 0.55;
+    flex-shrink: 0;
+}
+
+.services-panel__img {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transform: scale(1.05);
-    will-change: transform;
+    object-position: center;
+    transform: scale(1.04);
 }
 
-.service-overlay {
+.services-panel__overlay {
     position: absolute;
     inset: 0;
     background: linear-gradient(
         to top,
-        rgba(24, 19, 14, 0.75) 0%,
-        rgba(24, 19, 14, 0.18) 45%,
-        rgba(24, 19, 14, 0.1) 100%
+        rgba(24, 19, 14, 0.78) 0%,
+        rgba(24, 19, 14, 0.2) 42%,
+        rgba(24, 19, 14, 0.08) 100%
     );
+    pointer-events: none;
 }
 
-.service-inner {
-    position: absolute;
-    right: 0;
-    left: 0;
-    bottom: 0;
-    padding: 0 5vw 4rem;
-    z-index: 5;
+.services-panel__content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    padding: 0 5vw 5rem;
     text-align: right;
 }
 
-.service-number {
-    display: flex;
+.services-panel__number {
+    display: inline-flex;
     align-items: center;
     gap: 1rem;
     font-family: "Syncopate", sans-serif;
@@ -73,35 +94,43 @@
     color: var(--accent);
 }
 
-.service-number::before {
+.services-panel__number::before {
     content: "";
     width: 3rem;
     height: 1px;
     background: var(--accent);
 }
 
-.service-title {
+.services-panel__title {
     font-family: "Cairo", sans-serif;
     font-weight: 900;
-    font-size: clamp(2.8rem, 16vw, 9rem);
+    font-size: clamp(2.6rem, 14vw, 8rem);
     line-height: 1.05;
     color: #ffffff;
     margin: 0.75rem 0 1.25rem;
     text-shadow: 0 4px 30px rgba(0, 0, 0, 0.25);
 }
 
-.service-desc {
+.services-panel__desc {
     max-width: 34rem;
-    color: rgba(255, 255, 255, 0.85);
+    color: rgba(255, 255, 255, 0.88);
     font-size: clamp(0.95rem, 1.3vw, 1.15rem);
     line-height: 1.7;
 }
 
-.discover-btn {
-    display: inline-flex;
+.services-panel__actions {
+    display: flex;
+    flex-wrap: wrap;
     align-items: center;
     gap: 0.75rem;
     margin-top: 1.75rem;
+}
+
+.services-panel__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 0;
     padding: 0.9rem 2.25rem;
     border-radius: 999px;
     border: 1px solid rgba(255, 255, 255, 0.55);
@@ -110,71 +139,147 @@
     font-weight: 700;
     font-size: 0.95rem;
     cursor: pointer;
-    transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.25s ease;
 }
 
-.discover-btn:hover {
+.services-panel__btn:hover {
     background: #ffffff;
     color: var(--base-300);
     border-color: #ffffff;
+    transform: translateY(-2px);
 }
 
-.service-scroll-hint {
+.services-panel__hint {
     position: absolute;
     bottom: 2.5rem;
-    right: 5vw;
+    inset-inline-end: 5vw;
+    z-index: 2;
     display: flex;
     align-items: center;
     gap: 0.5rem;
     color: rgba(255, 255, 255, 0.6);
     font-size: 0.75rem;
-    z-index: 5;
+    pointer-events: none;
 }
 
-.progress-indicator {
-    position: absolute;
-    bottom: 2.5rem;
+/* ---------- Fixed nav (يظهر داخل القسم فقط) ---------- */
+.services-nav {
+    position: fixed;
+    bottom: 6rem;
     left: 50%;
     transform: translateX(-50%);
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.35s ease, visibility 0.35s ease;
+}
+
+.services-nav--visible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.services-nav__dots {
     display: flex;
     align-items: center;
     gap: 0.6rem;
-    z-index: 6;
 }
 
-.progress-dot {
+.services-nav__dot {
     width: 0.45rem;
     height: 0.45rem;
     border-radius: 999px;
-    background: rgba(255, 255, 255, 0.5);
+    border: none;
+    padding: 0;
+    background: rgba(255, 255, 255, 0.45);
+    cursor: pointer;
+    transition: width 0.3s ease, opacity 0.3s ease, background-color 0.3s ease;
 }
 
-.progress-dot-2 {
-    opacity: 0.45;
+.services-nav__dot--active {
+    width: 1.6rem;
+    opacity: 1;
+    background: #ffffff;
 }
 
-.progress-bar {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
+.services-nav__dot:hover {
+    background: rgba(255, 255, 255, 0.85);
+}
+
+.services-nav__dot:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+}
+
+.services-nav__bar {
+    width: min(12rem, 40vw);
     height: 2px;
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 999px;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.services-nav__bar-fill {
+    display: block;
+    width: 100%;
+    height: 100%;
     background: var(--accent);
     transform-origin: right center;
-    transform: scaleX(0);
-    z-index: 6;
+    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (min-width: 768px) {
+    .services-section {
+        padding: 0.5rem;
+    }
+
+    .services-panel__frame {
+        min-height: calc(100svh - 1rem);
+        border-radius: 2.5rem;
+    }
+
+    .services-divider {
+        padding: 1.125rem 3.5rem;
+    }
 }
 
 @media (max-width: 768px) {
-    .service-inner {
-        padding: 0 1.5rem 3.5rem;
+    .services-panel__content {
+        padding: 0 1.5rem 4.5rem;
     }
 
-    .service-desc {
+    .services-panel__desc {
         font-size: 0.9rem;
     }
 
-    .discover-btn {
+    .services-panel__btn {
         padding: 0.8rem 1.75rem;
+    }
+
+    .services-panel__actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .services-panel__actions .request-cta,
+    .services-panel__btn {
+        width: 100%;
+        justify-content: center;
+        max-width: none;
+    }
+
+    .services-panel__hint {
+        display: none;
+    }
+
+    .services-nav {
+        bottom: 5.5rem;
     }
 }

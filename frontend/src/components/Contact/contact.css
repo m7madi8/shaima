@@ -5,11 +5,11 @@
 }
 
 .contact-glass {
-    background: rgba(255, 255, 255, 0.45);
+    background: color-mix(in srgb, var(--base-100) 45%, transparent);
     -webkit-backdrop-filter: blur(14px);
     backdrop-filter: blur(14px);
-    border: 1px solid rgba(201, 168, 124, 0.35);
-    box-shadow: 0 30px 70px -30px rgba(45, 42, 38, 0.2);
+    border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+    box-shadow: 0 30px 70px -30px color-mix(in srgb, var(--base-300) 20%, transparent);
 }
 
 .contact-pill {

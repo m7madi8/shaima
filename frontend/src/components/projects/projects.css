@@ -191,7 +191,7 @@
   font-family: "Cairo", sans-serif;
   font-weight: 600;
   font-size: 0.85rem;
-  color: var(--base-100);
+  color: var(--base-300);
   background: var(--accent);
   margin-bottom: 1.25rem;
 }

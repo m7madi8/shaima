@@ -3,6 +3,7 @@ import { createPortal } from "react-dom";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { FiArrowUpRight, FiX, FiHome, FiLayers, FiClipboard } from "react-icons/fi";
+import { BRAND_NAME_AR } from "../constants/brand";
 import "./reserve.css";
 
 gsap.registerPlugin(useGSAP);
@@ -15,12 +16,14 @@ const projectTypes = [
 
 const Reserve = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const [selectedType, setSelectedType] = useState(null);
   const [preferredDate, setPreferredDate] = useState("");
   const [preferredTime, setPreferredTime] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [error, setError] = useState("");
 
+  const triggerRef = useRef(null);
   const backdropRef = useRef(null);
   const panelRef = useRef(null);
 
@@ -85,6 +88,28 @@ const Reserve = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen]);
 
+  // تتبّع فتح/إغلاق قائمة التنقل لإخفاء زر الحجز
+  useEffect(() => {
+    const handleMenuToggle = (e) => setMenuOpen(e.detail.isOpen);
+    window.addEventListener("menu:toggle", handleMenuToggle);
+    return () => window.removeEventListener("menu:toggle", handleMenuToggle);
+  }, []);
+
+  // إخفاء/إظهار زر الحجز بسلاسة عند فتح القائمة
+  useGSAP(
+    () => {
+      if (!triggerRef.current) return;
+
+      gsap.to(triggerRef.current, {
+        autoAlpha: menuOpen ? 0 : 1,
+        duration: menuOpen ? 0.3 : 0.35,
+        ease: menuOpen ? "power2.in" : "power2.out",
+        pointerEvents: menuOpen ? "none" : "auto",
+      });
+    },
+    { dependencies: [menuOpen] }
+  );
+
   // أنيميشن الفتح: fadeIn للخلفية + انزلاق اللوحة من اليمين (RTL: من جهة البداية)
   useGSAP(
     () => {
@@ -130,6 +155,7 @@ const Reserve = () => {
   return createPortal(
     <>
       <button
+        ref={triggerRef}
         type="button"
         onClick={openModal}
         className="reserve-trigger fixed z-[95] inline-flex items-center gap-2.5 md:gap-3 rounded-full bg-white/90 md:bg-white backdrop-blur-md md:backdrop-blur-none pr-3 pl-4 py-2.5 md:py-4 shadow-lg hover:shadow-xl transition-all duration-300"
@@ -162,11 +188,11 @@ const Reserve = () => {
             <div className="reserve-modal__scroll">
               <div className="reserve-modal__header">
                 <h2 id="reserve-modal-title" className="reserve-modal__title">
-                  لنجعلها بداية مميزة، احجز استشارتك مع المهندسة
+                  لنجعلها بداية مميزة، احجز استشارتك مع {BRAND_NAME_AR}
                 </h2>
                 <p className="reserve-modal__subtitle">
-                  هل أنت مستعد لتحويل فكرتك إلى مساحة حقيقية؟ احجز استشارتك المعمارية
-                  عبر تعبئة النموذج، ونتشرف بلقائك قريباً!
+                  هل أنت مستعد لتحويل فكرتك إلى مساحة حقيقية؟ احجز استشارتك
+                  عبر تعبئة النموذج، وأتشرف بلقائك قريباً!
                 </p>
               </div>
 
@@ -174,7 +200,7 @@ const Reserve = () => {
                 <div className="reserve-modal__success">
                   <p className="reserve-modal__success-title">تم استلام طلبك</p>
                   <p className="reserve-modal__success-text">
-                    شكراً لتواصلك معنا! سيتواصل فريقنا لتأكيد موعد استشارتك بخصوص
+                    شكراً لتواصلك! سأتواصل معك لتأكيد موعد استشارتك بخصوص
                     مشروعك {selectedTypeLabel ? `(${selectedTypeLabel})` : ""} بتاريخ{" "}
                     {formatDate(preferredDate)} الساعة {formatTime(preferredTime)}.
                   </p>

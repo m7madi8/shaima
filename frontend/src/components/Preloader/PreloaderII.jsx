@@ -1,117 +1,70 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import SplitText from "gsap/SplitText";
 
 import "./preloaderII.css";
-
-gsap.registerPlugin(SplitText);
+import { BRAND_NAME } from "../../constants/brand";
 
 export default function PreloaderII() {
     useGSAP(() => {
         try {
-            const hasSplitText = typeof SplitText !== "undefined" && typeof SplitText.create === "function";
-            const splits = {};
-
-            if (hasSplitText) {
-                const splitElements = [
-                    { key: "nameChars", selector: ".preloader-brand-name", type: "chars" },
-                ];
-                splitElements.forEach(({ key, selector, type }) => {
-                    const config = { type, mask: type };
-                    if (type === "chars") config.charsClass = "char";
-                    if (type === "lines") config.linesClass = "line";
-                    splits[key] = SplitText.create(selector, config);
-                });
-                if (splits.nameChars && splits.nameChars.chars) {
-                    gsap.set(splits.nameChars.chars, { y: "110%" });
-                }
-            }
-
             gsap.set(".preloader-progress-fill", { scaleX: 0 });
-            gsap.set(".preloader-logo", { opacity: 0, scale: 0.96 });
+            gsap.set(".preloader-brand-name", { opacity: 0, y: 16 });
 
-            const tl = gsap.timeline({ delay: 0.3 });
+            const tl = gsap.timeline({ delay: 0.08 });
 
-            tl.to(".preloader-logo", {
+            tl.to(".preloader-brand-name", {
                 opacity: 1,
-                scale: 1,
-                duration: 0.6,
-                ease: "power2.out",
-            });
-
-            if (splits.nameChars && splits.nameChars.chars) {
-                tl.to(
-                    splits.nameChars.chars,
-                    {
-                        y: "0%",
-                        stagger: 0.08,
-                        duration: 0.9,
-                        ease: "power4.out",
-                    },
-                    "-=0.4"
-                );
-            }
-
-            tl.to(
+                y: 0,
+                duration: 0.35,
+                ease: "power3.out",
+            })
+            .to(
                 ".preloader-progress-fill",
                 {
                     scaleX: 1,
-                    duration: 2.2,
+                    duration: 0.7,
                     ease: "power2.inOut",
                 },
-                "-=0.2"
+                "-=0.18"
             )
-            .to({}, { duration: 0.35 });
-
-            if (splits.nameChars && splits.nameChars.chars) {
-                tl.to(
-                    splits.nameChars.chars,
-                    {
-                        y: "-110%",
-                        stagger: 0.04,
-                        duration: 0.7,
-                        ease: "power4.in",
-                    },
-                    "exit"
-                );
-            }
-
-            tl.to(
-                ".preloader-logo",
+            .to(
+                ".preloader-brand-name",
                 {
                     opacity: 0,
-                    duration: 0.4,
+                    y: -10,
+                    duration: 0.22,
                     ease: "power2.in",
                 },
-                "exit"
+                "+=0.08"
             )
             .to(
                 ".preloader-panel",
                 {
                     y: "-100%",
-                    duration: 1,
+                    duration: 0.55,
                     ease: "power4.inOut",
                 },
-                "exit+=0.15"
+                "-=0.08"
             )
             .to(
                 ".preloader-mask",
                 {
                     scale: 5,
-                    duration: 2.5,
+                    duration: 0.85,
                     ease: "power3.inOut",
                 },
-                "exit+=0.1"
+                "-=0.42"
             )
             .to(
                 ".preloader-mask",
                 {
                     opacity: 0,
-                    duration: 0.6,
+                    duration: 0.28,
                     ease: "power2.out",
                 },
-                "-=0.4"
-            );
+                "-=0.28"
+            )
+            .set(".preloader-root", { display: "none" });
         } catch (e) {
             console.warn("Preloader animation fallback:", e);
         }
@@ -122,7 +75,7 @@ export default function PreloaderII() {
             <div className="preloader-panel">
                 <div className="preloader-inner">
                     <div className="preloader-logo">
-                        <span className="preloader-brand-name">WARDA DABBAH</span>
+                        <span className="preloader-brand-name">{BRAND_NAME}</span>
                     </div>
 
                     <div className="preloader-progress-track">

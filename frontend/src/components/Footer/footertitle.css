@@ -1,12 +1,64 @@
 .footer-title {
     position: absolute;
-    top: 55%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding-inline: clamp(0.75rem, 4vw, 2rem);
     text-align: center;
     z-index: 2;
     overflow: hidden;
+    pointer-events: none;
+}
+
+.footer-brand-name {
+    width: 100%;
+    max-width: 100%;
+    margin-inline: auto;
+    align-items: center;
+    text-align: center;
+    transform-origin: center center;
+    overflow: hidden;
+}
+
+.footer-brand-name .brand-logo__name {
+    width: 100%;
+    font-size: clamp(0.72rem, 5vw, 7rem);
+    letter-spacing: 0.06em;
+    line-height: 1.12;
+    white-space: nowrap;
+    text-align: center;
+    overflow: hidden;
+}
+
+.footer-brand-block .brand-logo__name {
+    font-size: clamp(0.72rem, 4.2vw, 1.75rem);
+    letter-spacing: clamp(0.04em, 0.3vw, 0.1em);
+    line-height: 1.15;
+    white-space: nowrap;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.footer-brand-block .brand-logo__tagline {
+    font-size: clamp(0.45rem, 1.8vw, 0.62rem);
+    letter-spacing: clamp(0.22em, 1.2vw, 0.42em);
+}
+
+@media (max-width: 380px) {
+    .footer-brand-name .brand-logo__name {
+        font-size: clamp(0.68rem, 4.6vw, 0.9rem);
+        letter-spacing: 0.04em;
+    }
+}
+
+@media (min-width: 768px) {
+    .footer-brand-name .brand-logo__name {
+        font-size: clamp(1.6rem, 6.2vw, 7rem);
+    }
 }
 
 .footer-title h1 {
@@ -26,10 +78,7 @@
     will-change: transform;
 }
 
-/* Specific styling for the ® symbol */
 .footer-title h1 sub.ftChar {
-    /* font-size: 0.5em; */
-    /* Make ® smaller */
     vertical-align: super;
     bottom: 0;
 }

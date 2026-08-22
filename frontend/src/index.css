@@ -2,12 +2,13 @@
 @import "tailwindcss";
 
 :root {
-	--base-100: #f5f2ed; /* Light beige base */
-	--base-200: #e8dcc8; /* Medium beige */
-	--base-300: #2d2a26; /* Dark text color */
-	--accent: #c9a87c; /* Terracotta/warm accent */
-	--terracotta: #b8956e; /* Secondary terracotta */
-	--natural: #a6947c; /* Natural material color */
+	/* Palette sampled from the SA logo */
+	--base-100: #f4ede9; /* sand canvas */
+	--base-200: #e5d6cc; /* warm sand surface */
+	--base-300: #45271e; /* espresso letters */
+	--accent: #ac9586; /* furniture highlight */
+	--terracotta: #7d685d; /* architectural line art */
+	--natural: #5c3e34; /* muted espresso */
 }
 
 html,
@@ -125,8 +126,8 @@ body {
 .glassEffect {
 	-webkit-backdrop-filter: blur(5px) saturate(100%);
 	backdrop-filter: blur(5px) saturate(100%);
-	background-color: rgba(237, 240, 245, 0.2);
-	border: 1px solid rgba(255, 255, 255, 0.125);
+	background-color: color-mix(in srgb, var(--base-100) 20%, transparent);
+	border: 1px solid color-mix(in srgb, var(--accent) 22%, transparent);
 }
 
 .hero-bg-img {
@@ -160,9 +161,15 @@ body {
 @media (max-width: 768px) {
 	.responsive-mobile {
 		position: absolute;
-		top: 33%;
+		inset: 0;
+		display: flex;
+		align-items: flex-end;
+		justify-content: center;
+		width: 100%;
+		height: 100%;
+		padding-bottom: 1.25rem;
+		pointer-events: none;
 	}
-
 }
 
 /* -------------- Choose Section Styles ----------------- */
@@ -175,7 +182,7 @@ body {
 			var(--base-200) 85%,
 			var(--base-200) 90%,
 			/* #241f1d 95%, */
-			#2b2825 100%);
+			var(--base-300) 100%);
 }
 
 .choose-title-break {
@@ -219,12 +226,12 @@ body {
 	}
 
 	.col h1 {
-		color: #b1a696;
+		color: var(--accent);
 		width: 60%;
 	}
 
 	.col p {
-		color: #b1a696;
+		color: var(--accent);
 		width: auto;
 	}
 
@@ -268,7 +275,7 @@ body {
 		position: relative;
 		width: 100%;
 		height: 100%;
-		background-color: #2a2725;
+		background-color: var(--base-300);
 		border-radius: 3rem;
 		overflow: hidden;
 	}

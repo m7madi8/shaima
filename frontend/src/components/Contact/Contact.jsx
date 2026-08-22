@@ -3,6 +3,8 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { FaInstagram, FaWhatsapp } from 'react-icons/fa';
 import contactBg from '../../assets/interior.jpg';
+import { BRAND_NAME, BRAND_TAGLINE, BRAND_ROLE_AR, BRAND_INSTAGRAM_HANDLE, BRAND_INSTAGRAM_URL } from '../../constants/brand';
+import RequestCta from '../RequestCta/RequestCta';
 import './contact.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -103,7 +105,7 @@ const Contact = () => {
         e.preventDefault();
         // UI-only form submission - will be connected to backend later
         console.log('Form submitted:', formData);
-        alert('شكراً لتواصلك معنا! سنرد عليك قريباً.');
+        alert('شكراً لتواصلك! سأرد عليك قريباً.');
         setFormData({ name: '', contact: '', message: '' });
     };
 
@@ -114,13 +116,13 @@ const Contact = () => {
                 <div className="contact-visual relative rounded-[2.5rem] md:rounded-[3.5rem] overflow-hidden min-h-[280px] md:min-h-[560px] order-2 lg:order-1">
                     <img
                         src={contactBg}
-                        alt="استوديو WARDA DABBAH للتصميم"
+                        alt={`${BRAND_NAME} — ${BRAND_ROLE_AR}`}
                         className="absolute inset-0 w-full h-full object-cover"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[rgba(45,42,38,0.55)] via-transparent to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[color-mix(in_srgb,var(--base-300)_55%,transparent)] via-transparent to-transparent" />
                     <div className="absolute bottom-8 right-8">
                         <p className="text-[var(--base-100)] text-[0.6rem] tracking-[0.35em] uppercase" dir="ltr" style={{ fontFamily: 'Cormorant Garamond, serif' }}>
-                            WARDA DABBAH — INTERIOR DESIGN
+                            {BRAND_NAME} — {BRAND_TAGLINE}
                         </p>
                     </div>
                 </div>
@@ -137,8 +139,11 @@ const Contact = () => {
                             <span className="text-[var(--natural)]">إلى واقع ملموس</span>
                         </h2>
                         <p className="text-[var(--natural)] text-base md:text-lg leading-relaxed">
-                            نحن هنا للاستماع إلى أفكاركم والرد على استفساراتكم حول مشاريعكم التصميمية.
+                            أنا هنا للاستماع إلى أفكاركم والرد على استفساراتكم حول مشاريعكم التصميمية.
                         </p>
+                        <div className="mt-6">
+                            <RequestCta service="contact" label="قدّم طلب خدمة" theme="dark" />
+                        </div>
                     </div>
 
                     {/* Form card */}
@@ -209,7 +214,7 @@ const Contact = () => {
 
                             <button
                                 type="submit"
-                                className="w-full rounded-full bg-[var(--base-300)] text-[var(--base-100)] py-4 font-bold text-lg transition-all duration-500 hover:bg-[var(--accent)] hover:tracking-widest active:scale-95"
+                                className="w-full rounded-full bg-[var(--base-300)] text-[var(--base-100)] py-4 font-bold text-lg transition-all duration-500 hover:bg-[var(--accent)] hover:text-[var(--base-300)] hover:tracking-widest active:scale-95"
                             >
                                 إرسال الرسالة
                             </button>
@@ -239,7 +244,7 @@ const Contact = () => {
                         </a>
 
                         <a
-                            href="https://instagram.com/warda_dabbah"
+                            href={BRAND_INSTAGRAM_URL}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="contact-pill flex items-center justify-between gap-3 rounded-full bg-[var(--base-100)] border border-[var(--accent)] px-4 py-2.5 group hover:border-[var(--base-300)] transition-colors"
@@ -248,7 +253,7 @@ const Contact = () => {
                                 <FaInstagram />
                             </span>
                             <span className="font-bold text-[var(--base-300)]">انستغرام</span>
-                            <span className="text-[var(--natural)] text-sm" dir="ltr">@warda_dabbah</span>
+                            <span className="text-[var(--natural)] text-sm" dir="ltr">@{BRAND_INSTAGRAM_HANDLE}</span>
                         </a>
                     </div>
                 </div>
