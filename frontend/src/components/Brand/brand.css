@@ -108,23 +108,23 @@
 }
 
 .brand-logo--image.brand-logo--sm .brand-logo__image {
-    height: 2.75rem;
+    height: 3.25rem;
 }
 
 .brand-logo--image.brand-logo--md .brand-logo__image {
-    height: 3.75rem;
+    height: 4.5rem;
 }
 
 .brand-logo--image.brand-logo--lg .brand-logo__image {
-    height: clamp(3.5rem, 8vw, 5.5rem);
+    height: clamp(4.5rem, 10vw, 7rem);
 }
 
 .brand-logo--image.brand-logo--hero .brand-logo__image {
-    height: clamp(5rem, 14vw, 10rem);
+    height: clamp(5.5rem, 16vw, 9.5rem);
 }
 
 .brand-logo--image.brand-logo--xl .brand-logo__image {
-    height: clamp(4rem, 12vw, 7.5rem);
+    height: clamp(5rem, 14vw, 9rem);
 }
 
 .brand-logo--image.brand-logo--align-end {

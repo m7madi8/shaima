@@ -1,6 +1,6 @@
 import React from 'react';
 import './brand.css';
-import logoImg from '../../assets/logo-mark.png';
+import logoImg from '../../assets/logo.png';
 import { BRAND_NAME, BRAND_TAGLINE, BRAND_NAME_AR } from '../../constants/brand';
 
 const BrandLogo = ({
