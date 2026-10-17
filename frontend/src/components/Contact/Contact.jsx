@@ -14,6 +14,7 @@ import {
 } from '../../constants/brand';
 import BrandLogo from '../Brand/BrandLogo';
 import RequestCta from '../RequestCta/RequestCta';
+import { prefersReducedMotion } from '../../lib/lenis';
 import './contact.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -27,18 +28,22 @@ const Contact = () => {
     });
 
     useEffect(() => {
+        if (prefersReducedMotion() || !sectionRef.current) return undefined;
+
+        sectionRef.current.classList.add('motion-ready');
+
         const ctx = gsap.context(() => {
-            gsap.fromTo(".contact-reveal",
-                { y: 36, opacity: 0 },
+            gsap.fromTo(".contact-heading, .contact-form",
+                { y: 14, opacity: 0 },
                 {
                     y: 0,
                     opacity: 1,
-                    duration: 0.85,
+                    duration: 0.62,
                     stagger: 0.08,
-                    ease: "power3.out",
+                    ease: "power2.out",
                     scrollTrigger: {
                         trigger: ".contact-section",
-                        start: "top 72%",
+                        start: "top 76%",
                     }
                 }
             );

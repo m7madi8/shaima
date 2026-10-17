@@ -12,8 +12,15 @@
 }
 
 .about-text {
+    opacity: 1;
+    transform: none;
+}
+
+.about-section.motion-ready .about-title,
+.about-section.motion-ready .about-lead,
+.about-section.motion-ready .about-principle,
+.about-section.motion-ready .about-portrait img {
     opacity: 0;
-    transform: translateY(48px);
 }
 
 .about-header {
@@ -186,7 +193,11 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .about-text {
+    .about-text,
+    .about-section.motion-ready .about-title,
+    .about-section.motion-ready .about-lead,
+    .about-section.motion-ready .about-principle,
+    .about-section.motion-ready .about-portrait img {
         opacity: 1;
         transform: none;
     }

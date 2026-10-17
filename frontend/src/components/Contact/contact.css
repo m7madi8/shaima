@@ -235,8 +235,15 @@
     }
 }
 
+.contact-section.motion-ready .contact-heading,
+.contact-section.motion-ready .contact-form {
+    opacity: 0;
+}
+
 @media (prefers-reduced-motion: reduce) {
-    .contact-reveal {
+    .contact-reveal,
+    .contact-section.motion-ready .contact-heading,
+    .contact-section.motion-ready .contact-form {
         opacity: 1;
         transform: none;
     }

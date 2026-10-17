@@ -27,7 +27,10 @@ const Reserve = () => {
   const backdropRef = useRef(null);
   const panelRef = useRef(null);
 
-  const openModal = () => setIsOpen(true);
+  const openModal = () => {
+    setIsOpen(true);
+    window.dispatchEvent(new CustomEvent("reserve:toggle", { detail: { isOpen: true } }));
+  };
 
   const resetForm = () => {
     setSelectedType(null);
@@ -41,6 +44,7 @@ const Reserve = () => {
     if (!backdropRef.current || !panelRef.current) {
       setIsOpen(false);
       resetForm();
+      window.dispatchEvent(new CustomEvent("reserve:toggle", { detail: { isOpen: false } }));
       return;
     }
     gsap
@@ -48,6 +52,7 @@ const Reserve = () => {
         onComplete: () => {
           setIsOpen(false);
           resetForm();
+          window.dispatchEvent(new CustomEvent("reserve:toggle", { detail: { isOpen: false } }));
         },
       })
       .to(panelRef.current, {
@@ -185,7 +190,7 @@ const Reserve = () => {
               <FiX />
             </button>
 
-            <div className="reserve-modal__scroll">
+            <div className="reserve-modal__scroll" data-lenis-prevent>
               <div className="reserve-modal__header">
                 <h2 id="reserve-modal-title" className="reserve-modal__title">
                   لنجعلها بداية مميزة، احجز استشارتك مع {BRAND_FOUNDER_AR}

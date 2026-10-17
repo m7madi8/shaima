@@ -1,15 +1,15 @@
 import { useEffect, useRef, useState, useCallback, Fragment } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import { FaArrowDown } from 'react-icons/fa';
+import { prefersReducedMotion, scrollToTarget } from '../../lib/lenis';
 import interiorBg from '../../assets/interior.jpg';
 import exteriorBg from '../../assets/exterior.jpg';
 import gardenBg from '../../assets/landscape-design.jpg';
 import RequestCta from '../RequestCta/RequestCta';
 import './services.css';
 
-gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+gsap.registerPlugin(ScrollTrigger);
 
 const panels = [
     {
@@ -51,12 +51,7 @@ const Services = () => {
         const panel = panelRefs.current[index];
         if (!panel) return;
 
-        gsap.to(window, {
-            scrollTo: { y: panel, autoKill: true },
-            duration: 0.65,
-            ease: 'power2.inOut',
-            overwrite: true,
-        });
+        scrollToTarget(panel);
     }, []);
 
     useEffect(() => {
@@ -72,33 +67,37 @@ const Services = () => {
                 const img = panel.querySelector('.services-panel__img');
                 const contentItems = panel.querySelectorAll('.services-panel__content > *');
 
-                gsap.from(contentItems, {
-                    y: 32,
-                    duration: 0.75,
-                    stagger: 0.07,
-                    ease: 'power3.out',
-                    scrollTrigger: {
-                        trigger: panel,
-                        start: 'top 75%',
-                        toggleActions: 'play none none none',
-                    },
-                });
+                if (!prefersReducedMotion()) {
+                    gsap.from(contentItems, {
+                        y: 14,
+                        opacity: 0,
+                        duration: 0.62,
+                        stagger: 0.05,
+                        ease: 'power2.out',
+                        scrollTrigger: {
+                            trigger: panel,
+                            start: 'top 78%',
+                            toggleActions: 'play none none none',
+                        },
+                    });
 
-                if (img) {
-                    gsap.fromTo(
-                        img,
-                        { scale: 1.06 },
-                        {
-                            scale: 1,
-                            ease: 'none',
-                            scrollTrigger: {
-                                trigger: panel,
-                                start: 'top bottom',
-                                end: 'bottom top',
-                                scrub: true,
-                            },
-                        }
-                    );
+                    if (img && window.matchMedia('(min-width: 769px)').matches) {
+                        gsap.fromTo(
+                            img,
+                            { y: 10, opacity: 0.82 },
+                            {
+                                y: 0,
+                                opacity: 1,
+                                duration: 0.7,
+                                ease: 'power2.out',
+                                scrollTrigger: {
+                                    trigger: panel,
+                                    start: 'top 82%',
+                                    toggleActions: 'play none none none',
+                                },
+                            }
+                        );
+                    }
                 }
 
                 const st = ScrollTrigger.create({

@@ -10,6 +10,6 @@ export default defineConfig({
     react()
   ],
   optimizeDeps: {
-    include: ["gsap"],
+    include: ["gsap", "lenis"],
   },
 });

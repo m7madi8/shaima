@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { prefersReducedMotion } from '../../lib/lenis';
 import { BRAND_NAME_AR, BRAND_FOUNDER_AR } from '../../constants/brand';
 import founderImg from '../../assets/arwa.jpg';
 import RequestCta from '../RequestCta/RequestCta';
@@ -18,19 +19,54 @@ const About = () => {
     const sectionRef = useRef(null);
 
     useEffect(() => {
+        if (prefersReducedMotion() || !sectionRef.current) return undefined;
+
+        sectionRef.current.classList.add('motion-ready');
+
         const ctx = gsap.context(() => {
             gsap.fromTo(
-                '.about-text',
-                { y: 48, opacity: 0 },
+                '.about-title, .about-lead',
+                { y: 14, opacity: 0 },
                 {
                     y: 0,
                     opacity: 1,
-                    duration: 1,
-                    stagger: 0.1,
-                    ease: 'power3.out',
+                    duration: 0.65,
+                    stagger: 0.08,
+                    ease: 'power2.out',
                     scrollTrigger: {
                         trigger: '.about-section',
-                        start: 'top 72%',
+                        start: 'top 76%',
+                    },
+                }
+            );
+
+            gsap.fromTo(
+                '.about-portrait img',
+                { opacity: 0.55, y: 12 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.7,
+                    ease: 'power2.out',
+                    scrollTrigger: {
+                        trigger: '.about-portrait',
+                        start: 'top 82%',
+                    },
+                }
+            );
+
+            gsap.fromTo(
+                '.about-principle',
+                { y: 12, opacity: 0 },
+                {
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.55,
+                    stagger: 0.06,
+                    ease: 'power2.out',
+                    scrollTrigger: {
+                        trigger: '.about-principles',
+                        start: 'top 84%',
                     },
                 }
             );

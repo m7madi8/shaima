@@ -6,6 +6,7 @@ import BrandLogo from "../Brand/BrandLogo";
 import { BRAND_NAME_AR } from "../../constants/brand";
 import Reserve from "../Reserve";
 import RequestCta from "../RequestCta/RequestCta";
+import { prefersReducedMotion } from "../../lib/lenis";
 import "./hero.css";
 
 const Hero = () => {
@@ -20,18 +21,18 @@ const Hero = () => {
     }, []);
 
     useGSAP(() => {
-        if (isDesktop) return;
+        if (isDesktop || prefersReducedMotion()) return;
 
         gsap.fromTo(
             ".hero-reveal",
-            { y: 22, opacity: 0 },
+            { y: 12, opacity: 0 },
             {
                 y: 0,
                 opacity: 1,
-                duration: 0.85,
-                stagger: 0.1,
-                ease: "power3.out",
-                delay: 0.15,
+                duration: 0.6,
+                stagger: 0.08,
+                ease: "power2.out",
+                delay: 0.12,
             }
         );
     }, [isDesktop]);

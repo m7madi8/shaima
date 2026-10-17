@@ -10,6 +10,7 @@ import {
   BRAND_INSTAGRAM_URL,
 } from "../constants/brand";
 import BrandLogo from "./Brand/BrandLogo";
+import { scrollToTarget } from "../lib/lenis";
 import "./menu.css";
 
 gsap.registerPlugin(useGSAP);
@@ -26,6 +27,7 @@ const Menu = () => {
   const [isOpen, setIsOpen] = useState(false);
   const overlayRef = useRef(null);
   const panelRef = useRef(null);
+  const pendingHash = useRef(null);
 
   const openMenu = () => setIsOpen(true);
 
@@ -49,6 +51,13 @@ const Menu = () => {
     window.dispatchEvent(new CustomEvent("menu:toggle", { detail: { isOpen } }));
     document.documentElement.style.overflow = isOpen ? "hidden" : "";
     document.body.style.overflow = isOpen ? "hidden" : "";
+
+    if (!isOpen && pendingHash.current) {
+      const hash = pendingHash.current;
+      pendingHash.current = null;
+      window.requestAnimationFrame(() => scrollToTarget(hash));
+    }
+
     return () => {
       document.documentElement.style.overflow = "";
       document.body.style.overflow = "";
@@ -103,6 +112,7 @@ const Menu = () => {
         <div
           ref={overlayRef}
           className="menu-overlay"
+          data-lenis-prevent
           onClick={handleOverlayClick}
           role="dialog"
           aria-modal="true"
@@ -127,12 +137,8 @@ const Menu = () => {
                     <Link
                       to={item.path}
                       onClick={() => {
+                        if (item.hash) pendingHash.current = item.hash;
                         closeMenu();
-                        if (item.hash) {
-                          window.setTimeout(() => {
-                            document.getElementById(item.hash)?.scrollIntoView({ behavior: "smooth" });
-                          }, 320);
-                        }
                       }}
                       className="menu-link"
                     >
