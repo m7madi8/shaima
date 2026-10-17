@@ -8,8 +8,8 @@
 .reserve-trigger {
   border: none;
   cursor: pointer;
-  font-family: "Cairo", sans-serif;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+  font-family: var(--font-body);
+  transition: background-color var(--motion-fast) var(--ease-out);
 }
 
 @media (max-width: 768px) {
@@ -28,8 +28,12 @@
   }
 
   .reserve-trigger:hover {
-    transform: translateX(-3px);
-    box-shadow: 0 12px 28px color-mix(in srgb, var(--base-300) 25%, transparent);
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .reserve-trigger:hover .reserve-trigger__label {
+    color: #ffffff;
   }
 }
 
@@ -47,8 +51,7 @@
 
 /* ---------- Backdrop (page stays visible + dimmed behind) ---------- */
 .reserve-modal {
-  background: color-mix(in srgb, var(--base-300) 55%, transparent);
-  backdrop-filter: blur(6px);
+  background: color-mix(in srgb, var(--ink) 55%, transparent);
   opacity: 0;
 }
 
@@ -62,9 +65,7 @@
   background: var(--base-300);
   display: flex;
   flex-direction: column;
-  border-start-end-radius: 2.5rem;
-  border-end-end-radius: 2.5rem;
-  box-shadow: -1.5rem 0 4rem color-mix(in srgb, var(--base-300) 45%, transparent);
+  border-radius: 0;
 }
 
 .reserve-modal__scroll {
@@ -96,7 +97,7 @@
 }
 
 .reserve-modal__title {
-  font-family: "Cairo", sans-serif;
+  font-family: var(--font-body);
   font-weight: 800;
   font-size: 1.65rem;
   color: var(--base-100);
@@ -105,7 +106,7 @@
 }
 
 .reserve-modal__subtitle {
-  font-family: "Cairo", sans-serif;
+  font-family: var(--font-body);
   font-weight: 400;
   font-size: 0.95rem;
   line-height: 1.9;
@@ -146,7 +147,7 @@
 }
 
 .reserve-step__label {
-  font-family: "Cairo", sans-serif;
+  font-family: var(--font-body);
   font-weight: 700;
   font-size: 1rem;
   color: var(--base-100);
@@ -172,7 +173,7 @@
   border-radius: 1.25rem;
   background: color-mix(in srgb, var(--base-100) 5%, transparent);
   cursor: pointer;
-  font-family: "Cairo", sans-serif;
+  font-family: var(--font-body);
   transition: border-color 0.3s ease, background-color 0.3s ease, transform 0.25s ease;
 }
 
@@ -224,14 +225,14 @@
 }
 
 .reserve-field__label {
-  font-family: "Cairo", sans-serif;
+  font-family: var(--font-body);
   font-weight: 600;
   font-size: 0.85rem;
   color: color-mix(in srgb, var(--base-100) 70%, transparent);
 }
 
 .reserve-field__input {
-  font-family: "Cairo", sans-serif;
+  font-family: var(--font-body);
   font-size: 0.95rem;
   color: var(--base-100);
   background: color-mix(in srgb, var(--base-100) 8%, transparent);
@@ -252,7 +253,7 @@
 .reserve-error {
   margin-top: -0.75rem;
   margin-bottom: 1.5rem;
-  font-family: "Cairo", sans-serif;
+  font-family: var(--font-body);
   font-weight: 600;
   font-size: 0.85rem;
   color: #e08a6f;
@@ -276,13 +277,13 @@
 }
 
 .reserve-summary__label {
-  font-family: "Cairo", sans-serif;
+  font-family: var(--font-body);
   font-size: 0.75rem;
   color: color-mix(in srgb, var(--base-100) 55%, transparent);
 }
 
 .reserve-summary__value {
-  font-family: "Cairo", sans-serif;
+  font-family: var(--font-body);
   font-weight: 700;
   font-size: 0.9rem;
   color: var(--base-100);
@@ -296,7 +297,7 @@
   padding: 0.9rem 1.75rem;
   border: none;
   cursor: pointer;
-  font-family: "Cairo", sans-serif;
+  font-family: var(--font-body);
   font-weight: 700;
   font-size: 0.95rem;
   background: var(--base-100);
@@ -320,7 +321,7 @@
 }
 
 .reserve-modal__success-title {
-  font-family: "Cairo", sans-serif;
+  font-family: var(--font-body);
   font-weight: 800;
   font-size: 1.25rem;
   color: var(--base-100);
@@ -328,7 +329,7 @@
 }
 
 .reserve-modal__success-text {
-  font-family: "Cairo", sans-serif;
+  font-family: var(--font-body);
   font-weight: 400;
   font-size: 0.95rem;
   line-height: 1.9;
@@ -340,7 +341,7 @@
   padding: 0.8rem 2rem;
   border: none;
   cursor: pointer;
-  font-family: "Cairo", sans-serif;
+  font-family: var(--font-body);
   font-weight: 700;
   font-size: 0.9rem;
   background: var(--base-100);

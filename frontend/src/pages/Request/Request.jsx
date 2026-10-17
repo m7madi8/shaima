@@ -5,6 +5,7 @@ import { FiArrowRight, FiArrowUpLeft, FiCheck } from 'react-icons/fi';
 import requestVisual from '../../assets/interior.jpg';
 import {
     BRAND_NAME_AR,
+    BRAND_FOUNDER_AR,
     BRAND_TAGLINE,
     BRAND_WHATSAPP_URL,
 } from '../../constants/brand';
@@ -89,11 +90,14 @@ const Request = () => {
             .filter(Boolean)
             .join('\n');
 
-        window.open(
-            `${BRAND_WHATSAPP_URL}?text=${encodeURIComponent(text)}`,
-            '_blank',
-            'noopener,noreferrer'
-        );
+        // TODO: enable WhatsApp handoff once the official Arqa number is confirmed
+        if (BRAND_WHATSAPP_URL) {
+            window.open(
+                `${BRAND_WHATSAPP_URL}?text=${encodeURIComponent(text)}`,
+                '_blank',
+                'noopener,noreferrer'
+            );
+        }
 
         setIsSubmitted(true);
     };
@@ -124,19 +128,22 @@ const Request = () => {
                             </span>
                             <h1 className="request-reveal">تم تجهيز طلبكم</h1>
                             <p className="request-reveal">
-                                سيُفتح واتساب برسالة جاهزة لـ {BRAND_NAME_AR}. أرسلوها
-                                وسأرد عليكم لتأكيد التفاصيل وخطوات العمل.
+                                {BRAND_WHATSAPP_URL
+                                    ? `سيُفتح واتساب برسالة جاهزة لـ ${BRAND_NAME_AR}. أرسلوها وسأرد عليكم لتأكيد التفاصيل وخطوات العمل.`
+                                    : `تم تجهيز طلبكم لـ ${BRAND_NAME_AR}. رقم واتساب الرسمي سيُضاف قريباً.`}
                             </p>
                             <div className="request-success__actions request-reveal">
-                                <a
-                                    href={BRAND_WHATSAPP_URL}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="request-submit"
-                                >
-                                    فتح واتساب
-                                    <FiArrowUpLeft aria-hidden="true" />
-                                </a>
+                                {BRAND_WHATSAPP_URL ? (
+                                    <a
+                                        href={BRAND_WHATSAPP_URL}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="request-submit"
+                                    >
+                                        فتح واتساب
+                                        <FiArrowUpLeft aria-hidden="true" />
+                                    </a>
+                                ) : null}
                                 <Link to="/" className="request-ghost">
                                     العودة للرئيسية
                                 </Link>
@@ -262,7 +269,11 @@ const Request = () => {
                                 )}
 
                                 <div className="request-footer request-reveal">
-                                    <p>يُرسل الطلب عبر واتساب مباشرة إلى {BRAND_NAME_AR}.</p>
+                                    <p>
+                                        {BRAND_WHATSAPP_URL
+                                            ? `يُرسل الطلب عبر واتساب مباشرة إلى ${BRAND_NAME_AR}.`
+                                            : `الطلب يُجهَّز لـ ${BRAND_FOUNDER_AR} — رقم واتساب الرسمي سيُضاف قريباً.`}
+                                    </p>
                                     <button type="submit" className="request-submit">
                                         إرسال طلب الخدمة
                                         <FiArrowUpLeft aria-hidden="true" />

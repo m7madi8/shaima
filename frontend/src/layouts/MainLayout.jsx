@@ -7,7 +7,6 @@ import { initLenis } from "../lib/lenis";
 import PreloaderII from "../components/Preloader/PreloaderII";
 import Logo from "../components/Buttons/Logo";
 import Footer from "../components/Footer/Footer";
-import FooterTitle from "../components/Footer/FooterTitle";
 import Menu from "../components/Menu";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -39,7 +38,6 @@ const MainLayout = () => {
                     <main>
                         <Outlet /> {/* Hero, About, Contact, etc. */}
                         <Footer />
-                        <FooterTitle />
                     </main>
                 </div>
             </div>

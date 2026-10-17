@@ -3,7 +3,7 @@ import { createPortal } from "react-dom";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { FiArrowUpRight, FiX, FiHome, FiLayers, FiClipboard } from "react-icons/fi";
-import { BRAND_NAME_AR } from "../constants/brand";
+import { BRAND_FOUNDER_AR } from "../constants/brand";
 import "./reserve.css";
 
 gsap.registerPlugin(useGSAP);
@@ -188,7 +188,7 @@ const Reserve = () => {
             <div className="reserve-modal__scroll">
               <div className="reserve-modal__header">
                 <h2 id="reserve-modal-title" className="reserve-modal__title">
-                  لنجعلها بداية مميزة، احجز استشارتك مع {BRAND_NAME_AR}
+                  لنجعلها بداية مميزة، احجز استشارتك مع {BRAND_FOUNDER_AR}
                 </h2>
                 <p className="reserve-modal__subtitle">
                   هل أنت مستعد لتحويل فكرتك إلى مساحة حقيقية؟ احجز استشارتك

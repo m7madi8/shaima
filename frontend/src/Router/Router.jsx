@@ -1,19 +1,17 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 
 import MainLayout from "../layouts/MainLayout";
 import Home from "../pages/Home/Home";
-import Projects from "../pages/Projects/Projects";
-import ProjectDetail from "../pages/ProjectDetail/ProjectDetail";
 import Request from "../pages/Request/Request";
 
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <MainLayout />, // Layout wrapper
+        element: <MainLayout />,
         children: [
-            { path: "", element: <Home /> }, // default page
-            { path: "projects", element: <Projects /> }, // projects page
-            { path: "projects/:id", element: <ProjectDetail /> }, // project detail page
+            { path: "", element: <Home /> },
+            { path: "projects", element: <Navigate to="/" replace /> },
+            { path: "projects/:id", element: <Navigate to="/" replace /> },
             { path: "request", element: <Request /> },
         ],
     },
@@ -22,8 +20,8 @@ const router = createBrowserRouter([
         element: <MainLayout />,
         children: [
             { path: "", element: <Home /> },
-            { path: "projects", element: <Projects /> },
-            { path: "projects/:id", element: <ProjectDetail /> },
+            { path: "projects", element: <Navigate to="/" replace /> },
+            { path: "projects/:id", element: <Navigate to="/" replace /> },
             { path: "request", element: <Request /> },
         ],
     },

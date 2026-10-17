@@ -22,7 +22,7 @@
 
 .projects-hero__eyebrow {
   display: block;
-  font-family: "Syncopate", sans-serif;
+  font-family: var(--font-display);
   font-weight: 700;
   font-size: 0.7rem;
   letter-spacing: 0.28em;
@@ -33,7 +33,7 @@
 
 .projects-hero__label {
   display: inline-block;
-  font-family: "Cairo", sans-serif;
+  font-family: var(--font-body);
   font-weight: 600;
   font-size: 0.75rem;
   letter-spacing: 0.2em;
@@ -46,7 +46,7 @@
 }
 
 .projects-hero__title {
-  font-family: "Cairo", sans-serif;
+  font-family: var(--font-body);
   font-weight: 800;
   font-size: clamp(2.75rem, 8vw, 5.5rem);
   line-height: 1.08;
@@ -59,7 +59,7 @@
 }
 
 .projects-hero__desc {
-  font-family: "Cairo", sans-serif;
+  font-family: var(--font-body);
   font-weight: 400;
   font-size: clamp(1rem, 1.8vw, 1.125rem);
   line-height: 1.85;
@@ -79,7 +79,7 @@
 }
 
 .projects-hero__stat {
-  font-family: "Cairo", sans-serif;
+  font-family: var(--font-body);
   font-size: 0.875rem;
   color: var(--natural);
 }
@@ -127,7 +127,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  font-family: "Cairo", sans-serif;
+  font-family: var(--font-body);
   font-weight: 600;
   font-size: 0.9rem;
   border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
@@ -141,20 +141,17 @@
     background-color 0.3s ease,
     color 0.3s ease,
     border-color 0.3s ease,
-    transform 0.25s ease,
-    box-shadow 0.3s ease;
+    transform 0.25s ease;
 }
 
 .projects-filter__btn:hover {
-  border-color: var(--accent);
-  transform: translateY(-2px);
+  border-color: var(--ink);
 }
 
 .projects-filter__btn--active {
-  background: var(--base-300);
-  color: var(--base-100);
-  border-color: var(--base-300);
-  box-shadow: 0 8px 24px color-mix(in srgb, var(--base-300) 18%, transparent);
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
 }
 
 .projects-filter__count {
@@ -207,10 +204,9 @@
 .projects-card__frame {
   position: relative;
   overflow: hidden;
-  border-radius: 2rem;
-  background-color: var(--base-200);
-  box-shadow: 0 20px 50px -24px color-mix(in srgb, var(--base-300) 16%, transparent);
-  transition: box-shadow 0.45s ease, transform 0.45s ease;
+  border-radius: 0;
+  background-color: var(--paper-soft);
+  transition: transform var(--motion-fast) var(--ease-out);
 }
 
 .projects-card--featured .projects-card__frame {
@@ -223,8 +219,7 @@
 
 .projects-card:hover .projects-card__frame,
 .projects-card:focus-visible .projects-card__frame {
-  box-shadow: 0 28px 60px -22px color-mix(in srgb, var(--base-300) 22%, transparent);
-  transform: translateY(-3px);
+  transform: none;
 }
 
 .projects-card__img {
@@ -247,15 +242,14 @@
   top: 1.15rem;
   inset-inline-start: 1.15rem;
   z-index: 2;
-  font-family: "Syncopate", sans-serif;
+  font-family: var(--font-display);
   font-weight: 700;
   font-size: 0.7rem;
   letter-spacing: 0.22em;
   color: var(--base-100);
   padding: 0.4rem 0.75rem;
   border-radius: 999px;
-  background: color-mix(in srgb, var(--base-300) 42%, transparent);
-  backdrop-filter: blur(8px);
+  background: var(--ink);
 }
 
 .projects-card__overlay {
@@ -265,12 +259,7 @@
   align-items: flex-end;
   justify-content: center;
   padding-bottom: 1.5rem;
-  background: linear-gradient(
-    to top,
-    rgba(24, 19, 14, 0.72) 0%,
-    rgba(24, 19, 14, 0.12) 48%,
-    transparent 100%
-  );
+  background: color-mix(in srgb, var(--ink) 55%, transparent);
   opacity: 0;
   transition: opacity 0.45s ease;
 }
@@ -284,15 +273,14 @@
   display: inline-flex;
   align-items: center;
   gap: 0.55rem;
-  font-family: "Cairo", sans-serif;
+  font-family: var(--font-body);
   font-weight: 700;
   font-size: 0.875rem;
   color: var(--base-100);
   padding: 0.65rem 1.35rem;
   border-radius: 999px;
   border: 1px solid rgba(255, 255, 255, 0.35);
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(12px);
+  background: var(--ink);
   transform: translateY(0.5rem);
   opacity: 0;
   transition:
@@ -313,7 +301,7 @@
 
 .projects-card__category {
   display: inline-block;
-  font-family: "Cairo", sans-serif;
+  font-family: var(--font-body);
   font-weight: 600;
   font-size: 0.75rem;
   letter-spacing: 0.08em;
@@ -322,7 +310,7 @@
 }
 
 .projects-card__title {
-  font-family: "Cairo", sans-serif;
+  font-family: var(--font-body);
   font-weight: 800;
   font-size: clamp(1.05rem, 2vw, 1.35rem);
   line-height: 1.35;
@@ -353,7 +341,7 @@
 }
 
 .projects-empty__eyebrow {
-  font-family: "Syncopate", sans-serif;
+  font-family: var(--font-display);
   font-weight: 700;
   font-size: 0.65rem;
   letter-spacing: 0.24em;
@@ -362,7 +350,7 @@
 }
 
 .projects-empty__text {
-  font-family: "Cairo", sans-serif;
+  font-family: var(--font-body);
   color: var(--natural);
   font-size: 1.05rem;
   line-height: 1.85;
@@ -371,7 +359,7 @@
 
 .projects-empty__reset {
   margin-top: 0.5rem;
-  font-family: "Cairo", sans-serif;
+  font-family: var(--font-body);
   font-weight: 700;
   font-size: 0.9rem;
   color: var(--base-100);
@@ -398,11 +386,7 @@
 @media (hover: none) {
   .projects-card__overlay {
     opacity: 1;
-    background: linear-gradient(
-      to top,
-      rgba(24, 19, 14, 0.55) 0%,
-      transparent 55%
-    );
+    background: color-mix(in srgb, var(--ink) 48%, transparent);
   }
 
   .projects-card__overlay-text {

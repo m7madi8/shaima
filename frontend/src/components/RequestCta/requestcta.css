@@ -6,14 +6,14 @@
     min-height: 2.85rem;
     padding: 0.8rem 1.7rem;
     border-radius: 999px;
-    font-family: "Cairo", sans-serif;
+    font-family: var(--font-body);
     font-weight: 700;
     font-size: 0.92rem;
     line-height: 1;
     text-decoration: none;
     white-space: nowrap;
     cursor: pointer;
-    transition: background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease, transform 0.3s ease;
+    transition: background-color var(--motion-fast) var(--ease-out), color var(--motion-fast) var(--ease-out), border-color var(--motion-fast) var(--ease-out);
 }
 
 .request-cta svg {
@@ -28,10 +28,9 @@
 }
 
 .request-cta--dark:hover {
-    background: var(--accent);
-    border-color: var(--accent);
-    color: var(--base-300);
-    transform: translateY(-2px);
+    background: var(--paper);
+    border-color: var(--ink);
+    color: var(--ink);
 }
 
 .request-cta--light {
@@ -44,7 +43,6 @@
     background: #ffffff;
     color: var(--base-300);
     border-color: #ffffff;
-    transform: translateY(-2px);
 }
 
 .request-cta--ghost {
@@ -57,11 +55,10 @@
     background: var(--base-300);
     color: var(--base-100);
     border-color: var(--base-300);
-    transform: translateY(-2px);
 }
 
 .request-cta:focus-visible {
-    outline: 2px solid var(--accent);
+    outline: 2px solid var(--ink);
     outline-offset: 3px;
 }
 

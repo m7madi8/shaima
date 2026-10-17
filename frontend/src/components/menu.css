@@ -1,103 +1,179 @@
-/* ============================================
-   Menu overlay — menu.css
-   يستخدم فقط المتغيرات المعرّفة في :root
-   ============================================ */
-
-/* ---------- Toggle button ---------- */
 .menu-toggle {
-  border: none;
+  position: fixed;
+  bottom: 1.75rem;
+  left: 50%;
+  z-index: 95;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.9rem;
+  min-width: 11.5rem;
+  min-height: 3.75rem;
+  padding-block: 0.45rem;
+  padding-inline: 0.45rem 1.6rem;
+  border: 1px solid var(--ink);
+  border-radius: var(--radius-full);
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
   cursor: pointer;
-  font-family: "Cairo", sans-serif;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 10px 30px color-mix(in srgb, var(--base-300) 18%, transparent);
+  transform: translateX(-50%);
+  transition: background-color var(--motion-fast) var(--ease-out), color var(--motion-fast) var(--ease-out), border-color var(--motion-fast) var(--ease-out);
 }
 
-@media (max-width: 768px) {
-  .menu-toggle {
-    bottom: 1.25rem;
-  }
+.menu-toggle--open {
+  background: transparent;
+  color: var(--paper);
+  border-color: var(--paper);
 }
 
 .menu-toggle__icon {
-  width: 2.25rem;
-  height: 2.25rem;
-  font-size: 0.95rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.85rem;
+  height: 2.85rem;
+  border-radius: var(--radius-full);
+  background: var(--ink);
+  color: var(--paper);
+  font-size: 1rem;
   line-height: 1;
+  flex-shrink: 0;
+}
+
+.menu-toggle--open .menu-toggle__icon {
+  background: var(--paper);
+  color: var(--ink);
 }
 
 .menu-toggle__label {
-  font-weight: 600;
-  font-size: 0.95rem;
-  color: var(--base-300);
+  flex: 1;
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: 0;
+  text-align: start;
+  line-height: 1;
 }
 
-/* ---------- Overlay & panel ---------- */
 .menu-overlay {
-  overflow-y: auto;
-  transform-origin: center center;
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  height: 100dvh;
+  overflow: hidden;
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.menu-panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 1.25rem 1.25rem 7.25rem;
+  overflow: hidden;
+}
+
+.menu-top {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.menu-top .brand-logo__image {
+  height: 2.6rem;
+}
+
+.menu-top__name {
+  margin: 0;
+  font-size: 0.78rem;
+  line-height: 1.4;
+  color: color-mix(in srgb, var(--paper) 62%, transparent);
+  text-align: start;
+}
+
+.menu-nav {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  min-height: 0;
 }
 
 .menu-nav__list {
   list-style: none;
+  width: 100%;
   margin: 0;
   padding: 0;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  gap: clamp(0.15rem, 1.4vh, 0.85rem);
 }
 
 .menu-nav__item {
-  border-bottom: 1px solid color-mix(in srgb, var(--base-100) 12%, transparent);
-}
-
-.menu-nav__item:first-child {
-  border-top: 1px solid color-mix(in srgb, var(--base-100) 12%, transparent);
+  border: 0;
 }
 
 .menu-link {
   display: flex;
-  align-items: baseline;
-  gap: 1.25rem;
-  padding: 1rem 0.25rem;
+  align-items: center;
+  gap: 0.85rem;
+  min-width: 0;
+  max-width: 100%;
+  min-height: 2.75rem;
+  padding: 0;
   text-decoration: none;
-  font-family: "Cairo", sans-serif;
-  font-weight: 800;
-  font-size: clamp(2.25rem, 6vw, 4.5rem);
+  color: var(--paper);
+  font-family: var(--font-arabic-display);
+  font-weight: 700;
+  font-size: clamp(1.55rem, 7.2vh, 4.25rem);
   line-height: 1.15;
-  color: var(--base-200);
-  transition: color 0.4s ease, padding-right 0.4s ease;
+  letter-spacing: 0;
+  transition: opacity var(--motion-fast) var(--ease-out);
+}
+
+.menu-link__text {
+  min-width: 0;
+  white-space: nowrap;
 }
 
 .menu-index {
-  font-family: "Cormorant Garamond", serif;
-  font-style: italic;
-  font-weight: 300;
-  font-size: 1.1rem;
-  color: var(--natural);
-  transition: color 0.4s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.85rem;
+  height: 1.85rem;
+  flex-shrink: 0;
+  border: 1px solid color-mix(in srgb, var(--paper) 35%, transparent);
+  border-radius: 50%;
+  font-family: var(--font-display);
+  font-size: 0.62rem;
+  font-weight: 600;
+  color: color-mix(in srgb, var(--paper) 55%, transparent);
 }
 
 .menu-link:hover,
 .menu-link:focus-visible {
-  color: var(--base-100);
+  opacity: 0.55;
 }
 
-.menu-link:hover .menu-index,
-.menu-link:focus-visible .menu-index {
-  color: var(--accent);
-}
-
-/* ---------- Footer: social + tagline ---------- */
-.menu-footer {
-  margin-top: 3.5rem;
+.menu-foot {
+  position: relative;
+  z-index: 1;
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
-  gap: 1.5rem;
+  gap: 0.85rem;
 }
 
-.menu-social {
-  display: flex;
-  gap: 0.75rem;
+.menu-foot p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: color-mix(in srgb, var(--paper) 62%, transparent);
 }
 
 .menu-social__link {
@@ -106,78 +182,92 @@
   justify-content: center;
   width: 2.75rem;
   height: 2.75rem;
-  border-radius: 9999px;
-  border: 1px solid color-mix(in srgb, var(--base-100) 30%, transparent);
-  color: var(--base-100);
+  min-width: 44px;
+  min-height: 44px;
+  border: 1px solid color-mix(in srgb, var(--paper) 45%, transparent);
+  border-radius: 50%;
+  color: var(--paper);
   font-size: 1.1rem;
-  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+  transition: background-color var(--motion-fast) var(--ease-out), color var(--motion-fast) var(--ease-out);
 }
 
-.menu-social__link:hover {
-  background-color: var(--accent);
-  color: var(--base-300);
-  transform: translateY(-2px);
+.menu-social__link:hover,
+.menu-social__link:focus-visible {
+  background: var(--paper);
+  color: var(--ink);
 }
 
-.menu-footer__text {
-  font-family: "Cairo", sans-serif;
-  font-weight: 400;
-  font-size: 0.9rem;
-  line-height: 1.7;
-  color: var(--natural);
-  max-width: 22rem;
-}
+@media (min-width: 768px) {
+  .menu-panel {
+    padding: 2rem 2.5rem 8rem;
+  }
 
-/* ---------- Visual panel ---------- */
-.menu-visual {
-  position: relative;
-  align-self: stretch;
-  display: flex;
-  flex-direction: column;
-  padding: 1.5rem 1.5rem 1.5rem 0;
-}
+  .menu-toggle {
+    min-width: 12.5rem;
+    min-height: 4rem;
+    padding-block: 0.5rem;
+    padding-inline: 0.5rem 1.85rem;
+    gap: 1rem;
+  }
 
-.menu-visual__frame {
-  position: relative;
-  flex: 1;
-  width: 100%;
-  min-height: 0;
-  border-radius: 2.5rem;
-  overflow: hidden;
-  background-color: var(--base-300);
-}
+  .menu-toggle__icon {
+    width: 3rem;
+    height: 3rem;
+  }
 
-.menu-visual__img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-}
-
-.menu-visual__overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to top,
-    color-mix(in srgb, var(--base-300) 40%, transparent) 0%,
-    transparent 45%
-  );
-  pointer-events: none;
-}
-
-/* ---------- Responsive ---------- */
-@media (max-width: 1023px) {
-  .menu-nav {
-    padding-top: 6rem;
-    padding-bottom: 4rem;
+  .menu-toggle__label {
+    font-size: 1.12rem;
   }
 }
 
-@media (max-width: 480px) {
+@media (min-width: 1100px) {
   .menu-link {
-    font-size: clamp(1.75rem, 9vw, 2.5rem);
-    gap: 0.85rem;
+    font-size: clamp(2.4rem, 8vh, 5rem);
+  }
+}
+
+@media (max-width: 767px) {
+  .menu-nav {
+    width: 100%;
+  }
+
+  .menu-link {
+    font-size: clamp(1.35rem, 7.6vw, 2.05rem);
+    gap: 0.65rem;
+    min-height: 2.5rem;
+  }
+
+  .menu-link__text {
+    white-space: normal;
+  }
+
+  .menu-index {
+    width: 1.65rem;
+    height: 1.65rem;
+    font-size: 0.58rem;
+  }
+
+  .menu-panel {
+    padding-bottom: 6.5rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .menu-link {
+    font-size: clamp(1.2rem, 7vw, 1.7rem);
+    gap: 0.5rem;
+  }
+
+  .menu-panel {
+    padding-inline: 1rem;
+    padding-bottom: 6rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .menu-link,
+  .menu-overlay,
+  .menu-panel {
+    transition: none;
   }
 }

@@ -1,140 +1,71 @@
-@import url("https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,300;1,300&family=Syncopate:wght@700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Syne:wght@400;500;600;700;800&display=swap");
 @import "tailwindcss";
 
 :root {
-	/* Palette sampled from the SA logo */
-	--base-100: #f4ede9; /* sand canvas */
-	--base-200: #e5d6cc; /* warm sand surface */
-	--base-300: #45271e; /* espresso letters */
-	--accent: #ac9586; /* furniture highlight */
-	--terracotta: #7d685d; /* architectural line art */
-	--natural: #5c3e34; /* muted espresso */
+	/* Ink / paper from the Arqa mark. Do not invent brand colors. */
+	--ink: #000000;
+	--ink-soft: #0a0a0a;
+	--paper: #ffffff;
+	--paper-soft: #f6f6f6;
+	--grey-100: #f0f0f0;
+	--grey-400: #6e6e6e; /* restrained cool grey — weight contrast only, not a second brand color */
+	--grey-700: #3a3a3a;
+
+	/* Legacy aliases so existing components pick up the new identity */
+	--base-100: var(--paper);
+	--base-200: var(--paper-soft);
+	--base-300: var(--ink);
+	--accent: var(--grey-400);
+	--terracotta: var(--grey-700);
+	--natural: var(--grey-700);
+
+	--font-display: "Syne", "IBM Plex Sans Arabic", sans-serif;
+	--font-body: "IBM Plex Sans Arabic", "Syne", sans-serif;
+	--font-arabic-display: "IBM Plex Sans Arabic", sans-serif;
+	--font-arabic-body: "IBM Plex Sans Arabic", sans-serif;
+	--font-ruqaa: "Aref Ruqaa", serif;
+
+	--radius-none: 0;
+	--radius-full: 999px;
+	--ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+	--motion-fast: 180ms;
+	--focus-ring: 2px solid var(--ink);
+	--focus-offset: 3px;
 }
 
 html,
 body {
-	background-color: var(--base-100);
+	background-color: var(--paper);
 	scroll-behavior: smooth;
-	font-family: "Cairo", sans-serif;
-	scroll-behavior: smooth;
+	font-family: var(--font-body);
 	scrollbar-width: none;
-	/* Chrome, Edge, Safari */
 	-ms-overflow-style: none;
-	/* IE & Edge */
 	direction: rtl;
-	color: var(--base-300);
+	color: var(--ink);
 }
 
-
-/* ----------------- Preloader Styles ---------------- */
-/* .preloader-progress,
-.preloader-mask,
-.preloader-content {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100svh;
-	pointer-events: none;
-	overflow: hidden;
+:focus-visible {
+	outline: var(--focus-ring);
+	outline-offset: var(--focus-offset);
 }
 
-.preloader-progress {
-	background-color: var(--base-200);
-	z-index: 1;
-	will-change: opacity;
+.ar-copy,
+[lang="ar"]:not([dir="ltr"]) {
+	letter-spacing: 0;
+	text-transform: none;
+	line-height: 1.65;
 }
 
-.preloader-progress-bar {
-	position: absolute;
-	top: 0;
-	left: 50%;
-	transform: translateX(-50%) scaleX(0);
-	width: 55%;
-	height: 100%;
-	background-color: var(--base-300);
-	transform-origin: left;
-	will-change: transform;
-}
-
-.preloader-logo {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	text-align: center;
-	mix-blend-mode: difference;
-	z-index: 2;
-}
-
-.preloader-logo .logo-text {
-	position: relative;
-	color: var(--base-300);
-	font-size: 3rem;
-	font-weight: 700;
-	line-height: 1;
-}
-
-.preloader-mask {
-	background-color: var(--base-100);
-	mask: linear-gradient(var(--base-300), var(--base-300)), url("./../public/preloader-bg.svg") center/40% no-repeat;
-	-webkit-mask-composite: source-out;
-	mask-composite: subtract;
-	will-change: transform;
-	z-index: 1;
-}
-
-.preloader-content {
-	z-index: 2;
-}
-
-.preloader-footer {
-	position: absolute;
-	bottom: 4rem;
-	left: 50%;
-	transform: translateX(-50%);
-	width: 30%;
-	text-align: center;
-}
-
-.preloader-footer p {
-	color: var(--base-300);
-	opacity: 0.5;
-}
-
-.preloader-logo h1 .char2 {
-	position: relative;
-	transform: translateX(0%);
-	display: inline-block;
-	overflow-x: hidden;
-	will-change: transform;
-}
-
-.line,
-.char2 {
-	display: inline-block;
-	position: relative;
-	transform: translateY(0%);
-	padding-bottom: 0.2em;
-	margin-bottom: -0.2em;
-	will-change: transform;
-	overflow: hidden;
-
-} */
-
-/* Glassmorphism card effect */
+/* Glassmorphism card effect — flattened to paper + ink for the new identity */
 .glassEffect {
-	-webkit-backdrop-filter: blur(5px) saturate(100%);
-	backdrop-filter: blur(5px) saturate(100%);
-	background-color: color-mix(in srgb, var(--base-100) 20%, transparent);
-	border: 1px solid color-mix(in srgb, var(--accent) 22%, transparent);
+	background-color: var(--paper);
+	border: 1px solid var(--ink);
 }
 
 .hero-bg-img {
 	background-image: url("./assets/cap1.png");
 	background-repeat: no-repeat;
 	object-fit: cover;
-	/* background-position: center; */
 }
 
 /* --------------- Welcome Section Styles -------------- */
@@ -151,7 +82,7 @@ body {
 	display: inline-block;
 	position: absolute;
 	top: 0;
-	right: 0;
+	inset-inline-end: 0;
 	color: var(--base-300);
 	clip-path: inset(0 0 100% 0);
 	white-space: nowrap;
@@ -174,15 +105,7 @@ body {
 
 /* -------------- Choose Section Styles ----------------- */
 .choose-section {
-	background: linear-gradient(to bottom,
-			var(--base-100) 0%,
-			var(--base-100) 50%,
-			var(--base-200) 65%,
-			var(--base-200) 75%,
-			var(--base-200) 85%,
-			var(--base-200) 90%,
-			/* #241f1d 95%, */
-			var(--base-300) 100%);
+	background: var(--ink);
 }
 
 .choose-title-break {
@@ -196,7 +119,7 @@ body {
 	display: inline-block;
 	position: absolute;
 	top: 0;
-	right: 0;
+	inset-inline-end: 0;
 	color: var(--base-300);
 	clip-path: inset(100% 0 0 0);
 	white-space: wrap;
@@ -211,12 +134,6 @@ body {
 /* ------------------ Sticky Section Style ------------------- */
 .sticky-cols {
 	padding: 0rem;
-
-	/* .sticky-cols-wrapper {
-		position: relative;
-		width: 100%;
-		height: 100vh;
-	} */
 
 	.col {
 		position: absolute;
@@ -276,14 +193,13 @@ body {
 		width: 100%;
 		height: 100%;
 		background-color: var(--base-300);
-		border-radius: 3rem;
+		border-radius: 0;
 		overflow: hidden;
 	}
 
 	.col-content-wrapper-2 {
 		position: absolute;
-		top: 0;
-		left: 0;
+		inset: 0;
 		width: 100%;
 		height: 100%;
 		padding: 2.5rem;
@@ -295,8 +211,7 @@ body {
 	.col-img-1,
 	.col-img-2 {
 		position: absolute;
-		top: 0;
-		left: 0;
+		inset: 0;
 		width: 100%;
 		height: 100%;
 	}
@@ -319,25 +234,18 @@ body {
 	}
 }
 
-
-@media(max-width: 800px) {
-	.preloader-progress-bar {
-		left: 0%;
-		width: 100%;
-		transform: translateX(0%) scale(0);
+@media (prefers-reduced-motion: reduce) {
+	html,
+	body {
+		scroll-behavior: auto;
 	}
 
-	.preloader-logo .logo-text {
-		font-size: 2rem;
-	}
-
-	.preloader-mask {
-		mask: linear-gradient(var(--base-300), var(--base-300)), url("./../public/preloader-bg.svg") center/90% no-repeat;
-		-webkit-mask-composite: source-out;
-		mask-composite: subtract;
-	}
-
-	.preloader-footer {
-		width: 75%;
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+		scroll-behavior: auto !important;
 	}
 }

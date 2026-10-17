@@ -2,8 +2,7 @@ import { useEffect, useRef, useState, useCallback, Fragment } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
-import { useNavigate } from 'react-router-dom';
-import { FaArrowDown, FaArrowLeft } from 'react-icons/fa';
+import { FaArrowDown } from 'react-icons/fa';
 import interiorBg from '../../assets/interior.jpg';
 import exteriorBg from '../../assets/exterior.jpg';
 import gardenBg from '../../assets/landscape-design.jpg';
@@ -47,7 +46,6 @@ const Services = () => {
     const panelRefs = useRef([]);
     const [activeIndex, setActiveIndex] = useState(0);
     const [navVisible, setNavVisible] = useState(false);
-    const navigate = useNavigate();
 
     const goToPanel = useCallback((index) => {
         const panel = panelRefs.current[index];
@@ -133,12 +131,8 @@ const Services = () => {
         };
     }, []);
 
-    const handleExploreClick = (category) => {
-        navigate('/projects', { state: { filter: category } });
-    };
-
     return (
-        <section className="services-section" ref={sectionRef} aria-label="خدمات التصميم">
+        <section id="services" className="services-section" ref={sectionRef} aria-label="خدمات التصميم">
             {panels.map((panel, index) => (
                 <Fragment key={panel.id}>
                     {index > 0 && (
@@ -170,14 +164,6 @@ const Services = () => {
                                 <h2 className="services-panel__title">{panel.title}</h2>
                                 <p className="services-panel__desc">{panel.desc}</p>
                                 <div className="services-panel__actions">
-                                    <button
-                                        type="button"
-                                        onClick={() => handleExploreClick(panel.filter)}
-                                        className="services-panel__btn"
-                                    >
-                                        اكتشف المزيد
-                                        <FaArrowLeft className="text-sm" aria-hidden="true" />
-                                    </button>
                                     <RequestCta
                                         service={panel.id}
                                         label="اطلب هذه الخدمة"

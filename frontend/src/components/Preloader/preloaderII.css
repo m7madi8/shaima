@@ -35,26 +35,24 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    direction: ltr;
+    direction: rtl;
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
 }
 
 .preloader-brand-name {
-    font-family: "Syncopate", sans-serif;
-    font-weight: 400;
-    font-size: clamp(0.7rem, 2.4vw, 1.15rem);
-    letter-spacing: 0.28em;
-    text-transform: uppercase;
-    line-height: 1;
-    color: var(--base-100);
-    white-space: nowrap;
     display: inline-block;
-    max-width: 100%;
-    margin-top: 0;
-    margin-right: -0.28em;
-    padding-left: 0.28em;
+    margin: 0;
+    color: #ffffff;
+    -webkit-text-fill-color: #ffffff;
+    font-family: var(--font-ruqaa);
+    font-weight: 700;
+    font-size: clamp(3.4rem, 14vw, 7.5rem);
+    line-height: 1.15;
+    letter-spacing: 0;
+    text-transform: none;
+    white-space: nowrap;
 }
 
 .preloader-brand-logo {
@@ -111,10 +109,7 @@
     }
 
     .preloader-brand-name {
-        font-size: clamp(0.68rem, 3.6vw, 1.15rem);
-        letter-spacing: 0.22em;
-        margin-right: -0.22em;
-        padding-left: 0.22em;
+        font-size: clamp(3rem, 18vw, 5.5rem);
     }
 
     .preloader-progress-track {
@@ -137,10 +132,7 @@
     }
 
     .preloader-brand-name {
-        font-size: clamp(0.6rem, 4.2vw, 0.95rem);
-        letter-spacing: 0.16em;
-        margin-right: -0.16em;
-        padding-left: 0.16em;
+        font-size: clamp(2.6rem, 20vw, 4.4rem);
     }
 
     .preloader-progress-track {
@@ -150,10 +142,7 @@
 
 @media (min-width: 1440px) {
     .preloader-brand-name {
-        font-size: 1.65rem;
-        letter-spacing: 0.3em;
-        margin-right: -0.3em;
-        padding-left: 0.3em;
+        font-size: 8rem;
     }
 
     .preloader-inner {

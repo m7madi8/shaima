@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import gsap from "gsap/all";
 import { useGSAP } from "@gsap/react";
-import smoke from "../../assets/smoke_final.mp4";
 import heroBg from "../../assets/hero-background.jpg";
 import BrandLogo from "../Brand/BrandLogo";
 import { BRAND_NAME_AR } from "../../constants/brand";
@@ -21,20 +20,7 @@ const Hero = () => {
     }, []);
 
     useGSAP(() => {
-        if (isDesktop) {
-            gsap.to(".hero-img", {
-                yPercent: -5,
-                scale: 1.12,
-                ease: "none",
-                scrollTrigger: {
-                    trigger: ".hero-section",
-                    start: "top top",
-                    end: "bottom top",
-                    scrub: 1.5,
-                },
-            });
-            return;
-        }
+        if (isDesktop) return;
 
         gsap.fromTo(
             ".hero-reveal",
@@ -60,21 +46,19 @@ const Hero = () => {
                         src={heroBg}
                         alt=""
                         className="hero-still"
+                        fetchPriority="high"
+                        decoding="async"
                     />
-                    <div className="hero-veil" />
                 </div>
 
                 {isDesktop && (
                     <div className="hero-media hero-media--desktop" aria-hidden="true">
-                        <img src={heroBg} alt="" className="hero-img" />
-                        <video
-                            src={smoke}
-                            autoPlay
-                            loop
-                            muted
-                            playsInline
-                            preload="none"
-                            className="hero-smoke"
+                        <img
+                            src={heroBg}
+                            alt=""
+                            className="hero-img"
+                            fetchPriority="high"
+                            decoding="async"
                         />
                     </div>
                 )}

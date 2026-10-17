@@ -2,7 +2,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 
 import "./preloaderII.css";
-import { BRAND_NAME } from "../../constants/brand";
+import { BRAND_NAME_AR } from "../../constants/brand";
 
 export default function PreloaderII() {
     useGSAP(() => {
@@ -75,7 +75,7 @@ export default function PreloaderII() {
             <div className="preloader-panel">
                 <div className="preloader-inner">
                     <div className="preloader-logo">
-                        <span className="preloader-brand-name">{BRAND_NAME}</span>
+                        <span className="preloader-brand-name" lang="ar">{BRAND_NAME_AR}</span>
                     </div>
 
                     <div className="preloader-progress-track">

@@ -1,7 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { BRAND_NAME_AR } from '../../constants/brand';
+import { BRAND_NAME_AR, BRAND_FOUNDER_AR } from '../../constants/brand';
+import founderImg from '../../assets/arwa.jpg';
 import RequestCta from '../RequestCta/RequestCta';
 import './about.css';
 
@@ -9,7 +10,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const principles = [
     { no: '01', title: 'الفكرة', text: 'كل مشروع يبدأ بقراءة المكان وشخصيتكم، قبل أي خامة أو لون.' },
-    { no: '02', title: 'المادة', text: 'أخامات طبيعية وتفاصيل متقنة تعيش مع الوقت، لا تبهت بعد الموسم.' },
+    { no: '02', title: 'المادة', text: 'خامات طبيعية وتفاصيل متقنة تعيش مع الوقت، لا تبهت بعد الموسم.' },
     { no: '03', title: 'التوازن', text: 'جمال واضح ووظيفة هادئة في المساحة نفسها، بلا مبالغة ولا نقص.' },
 ];
 
@@ -39,10 +40,10 @@ const About = () => {
     }, []);
 
     return (
-        <section className="about-section" ref={sectionRef} aria-labelledby="about-title">
+        <section id="about" className="about-section" ref={sectionRef} aria-labelledby="about-title">
             <div className="about-shell">
                 <header className="about-header">
-                    <span className="about-text about-label">من أنا</span>
+                    <span className="about-text about-label">{BRAND_NAME_AR}</span>
                     <h2 id="about-title" className="about-text about-title">
                         أصمم
                         <span>مساحات راقية</span>
@@ -50,8 +51,11 @@ const About = () => {
                 </header>
 
                 <div className="about-body">
+                    <figure className="about-text about-portrait">
+                        <img src={founderImg} alt={BRAND_FOUNDER_AR} />
+                    </figure>
                     <p className="about-text about-lead">
-                        أنا {BRAND_NAME_AR}، مهندسة معمارية. أؤمن بأن كل مساحة تحمل قصة فريدة تستحق أن تُروى بأسلوب راقٍ ومتقن.
+                        أنا {BRAND_FOUNDER_AR}، أقود {BRAND_NAME_AR} وأؤمن أن كل مساحة تحمل قصة تستحق أن تُروى بأسلوب راقٍ ومتقن.
                     </p>
                     <div className="about-copy">
                         <p className="about-text">

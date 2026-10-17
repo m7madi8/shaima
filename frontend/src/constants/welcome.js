@@ -1,25 +1,18 @@
 export const welcomeLinesLG = [
-    "Welcome to a world of wild California",
-    "desert with Shaima Alsayed®, where you will",
-    "discover exquisite nature observing it",
-    "from Shaima Alsayed spaces, nestled in the",
-    "one of the most breathtaking",
-    "destination on the United States.",
+    "Welcome to Arqa Design Studio,",
+    "where spaces are shaped with",
+    "clarity, geometry, and care.",
+    "TODO: replace leftover welcome copy",
+    "once official English copy is provided.",
+    "",
 ];
 export const welcomeLinesSM = [
-    "Welcome to a world",
-    "of wild California",
-    "desert with ",
-    "Shaima Alsayed®, where ",
-    "you will discover ",
-    "exquisite nature",
-    "observing it from",
-    "Shaima Alsayed spaces,",
-    "nestled in the one",
-    "of the most",
-    "breathtaking",
-    "destination on the",
-    "United States.",
+    "Welcome to",
+    "Arqa Design Studio,",
+    "where spaces",
+    "are shaped with",
+    "clarity and care.",
+    "TODO: official English copy",
 ];
 
 export const chooseLinesLG =[

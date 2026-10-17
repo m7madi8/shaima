@@ -3,7 +3,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import React, { useRef } from 'react';
 import BrandLogo from '../Brand/BrandLogo';
-import { BRAND_NAME } from '../../constants/brand';
+import { BRAND_TAGLINE } from '../../constants/brand';
 
 import "./footertitle.css";
 
@@ -36,14 +36,14 @@ const FooterTitle = () => {
                 <p className='text-[var(--natural)] text-[0.7rem]'>
                     جميع الحقوق محفوظة © 2026
                 </p>
-                <p className='text-[var(--natural)] text-[0.7rem] tracking-[0.2em] uppercase'>
-                    INTERIOR DESIGN
+                <p className='text-[var(--natural)] text-[0.7rem] tracking-[0.2em] uppercase' dir="ltr">
+                    {BRAND_TAGLINE}
                 </p>
             </div>
 
             <div className='footer-title'>
                 <BrandLogo
-                    name={BRAND_NAME}
+                    name=""
                     theme="light"
                     size="xl"
                     tagline={false}

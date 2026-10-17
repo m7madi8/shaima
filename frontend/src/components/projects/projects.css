@@ -19,7 +19,7 @@
 
 .projects-header__eyebrow {
   display: inline-block;
-  font-family: "Cormorant Garamond", serif;
+  font-family: var(--font-display);
   font-style: italic;
   font-weight: 300;
   font-size: 1.25rem;
@@ -29,7 +29,7 @@
 }
 
 .projects-header__title {
-  font-family: "Cairo", sans-serif;
+  font-family: var(--font-body);
   font-weight: 800;
   font-size: clamp(2.25rem, 5vw, 3.75rem);
   color: var(--base-300);
@@ -39,7 +39,7 @@
 }
 
 .projects-header__subtitle {
-  font-family: "Cairo", sans-serif;
+  font-family: var(--font-body);
   font-weight: 400;
   font-size: clamp(1rem, 2vw, 1.15rem);
   color: var(--natural);
@@ -56,7 +56,7 @@
 }
 
 .projects-filter__btn {
-  font-family: "Cairo", sans-serif;
+  font-family: var(--font-body);
   font-weight: 600;
   font-size: 0.95rem;
   border: none;
@@ -91,7 +91,7 @@
 
 .projects-empty {
   text-align: center;
-  font-family: "Cairo", sans-serif;
+  font-family: var(--font-body);
   color: var(--natural);
   font-size: 1.05rem;
   padding: 4rem 0;
@@ -109,14 +109,14 @@
 
 .projects-card__overlay-text {
   color: var(--base-100);
-  font-family: "Cairo", sans-serif;
+  font-family: var(--font-body);
   font-weight: 600;
   font-size: 0.95rem;
   letter-spacing: 0.01em;
 }
 
 .projects-card__title {
-  font-family: "Cairo", sans-serif;
+  font-family: var(--font-body);
   font-weight: 700;
   font-size: 1.15rem;
   color: var(--base-300);
@@ -125,7 +125,7 @@
 
 .projects-card__category {
   display: inline-block;
-  font-family: "Cairo", sans-serif;
+  font-family: var(--font-body);
   font-weight: 500;
   font-size: 0.875rem;
   color: var(--accent);
@@ -156,7 +156,7 @@
 }
 
 .projects-modal__title {
-  font-family: "Cairo", sans-serif;
+  font-family: var(--font-body);
   font-weight: 800;
   font-size: 1.5rem;
   color: var(--base-300);
@@ -188,7 +188,7 @@
 }
 
 .projects-modal__badge {
-  font-family: "Cairo", sans-serif;
+  font-family: var(--font-body);
   font-weight: 600;
   font-size: 0.85rem;
   color: var(--base-300);
@@ -201,7 +201,7 @@
 }
 
 .projects-modal__description {
-  font-family: "Cairo", sans-serif;
+  font-family: var(--font-body);
   font-weight: 400;
   font-size: 1rem;
   line-height: 2;

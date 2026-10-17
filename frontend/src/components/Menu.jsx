@@ -3,21 +3,23 @@ import { createPortal } from "react-dom";
 import { Link } from "react-router-dom";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { FiLinkedin, FiInstagram, FiTwitter } from "react-icons/fi";
-import menuVisualImg from "../assets/warda_dabbah-20260805-0001.jpg";
-import { BRAND_NAME_AR } from "../constants/brand";
+import { FiInstagram } from "react-icons/fi";
+import {
+  BRAND_NAME_AR,
+  BRAND_FOUNDER_AR,
+  BRAND_INSTAGRAM_URL,
+} from "../constants/brand";
+import BrandLogo from "./Brand/BrandLogo";
 import "./menu.css";
 
 gsap.registerPlugin(useGSAP);
 
-// عدّل المسارات هنا لتطابق المسارات الفعلية المعرّفة في Router.jsx
 const navItems = [
-  { label: "الرئيسية", path: "/" },
-  { label: "المعرض", path: "/projects" },
-  { label: "من نحن", path: "/about" },
-  { label: "الخدمات", path: "/services" },
-  { label: "تواصل معنا", path: "/contact" },
-  { label: "طلب الخدمة", path: "/request" },
+  { label: "الرئيسية", path: "/", hash: null },
+  { label: "من نحن", path: "/#about", hash: "about" },
+  { label: "الخدمات", path: "/#services", hash: "services" },
+  { label: "تواصل معنا", path: "/#contact", hash: "contact" },
+  { label: "طلب الخدمة", path: "/request", hash: null },
 ];
 
 const Menu = () => {
@@ -27,7 +29,6 @@ const Menu = () => {
 
   const openMenu = () => setIsOpen(true);
 
-  // إغلاق مع أنيميشن خروج قبل إزالة العنصر من الشجرة - تأثير كبسولة
   const closeMenu = () => {
     if (!overlayRef.current || !panelRef.current) {
       setIsOpen(false);
@@ -35,27 +36,25 @@ const Menu = () => {
     }
     gsap
       .timeline({ onComplete: () => setIsOpen(false) })
-      .to(
-        ".menu-link",
-        { y: -24, opacity: 0, duration: 0.3, stagger: 0.02, ease: "power2.in" },
-        0
-      )
-      .to(panelRef.current, { opacity: 0, scale: 0.95, duration: 0.4, ease: "power2.in" }, 0)
-      .to(overlayRef.current, { opacity: 0, scale: 0, duration: 0.6, ease: "power3.inOut" }, 0.1);
+      .to(".menu-link", { y: -12, opacity: 0, duration: 0.22, stagger: 0.02, ease: "power2.in" }, 0)
+      .to(panelRef.current, { opacity: 0, duration: 0.28, ease: "power2.in" }, 0)
+      .to(overlayRef.current, { opacity: 0, duration: 0.32, ease: "power2.inOut" }, 0.05);
   };
 
   const handleOverlayClick = (e) => {
     if (e.target === e.currentTarget) closeMenu();
   };
 
-  // إبلاغ المكوّنات الأخرى (مثل زر الحجز) بتغيّر حالة القائمة
   useEffect(() => {
-    window.dispatchEvent(
-      new CustomEvent("menu:toggle", { detail: { isOpen } })
-    );
+    window.dispatchEvent(new CustomEvent("menu:toggle", { detail: { isOpen } }));
+    document.documentElement.style.overflow = isOpen ? "hidden" : "";
+    document.body.style.overflow = isOpen ? "hidden" : "";
+    return () => {
+      document.documentElement.style.overflow = "";
+      document.body.style.overflow = "";
+    };
   }, [isOpen]);
 
-  // إغلاق عبر مفتاح Escape
   useEffect(() => {
     if (!isOpen) return undefined;
     const handleKeyDown = (e) => {
@@ -63,53 +62,24 @@ const Menu = () => {
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen]);
 
-  // أنيميشن الدخول: تأثير كبسولة مثل اللودر
   useGSAP(
     () => {
       if (!isOpen || !overlayRef.current || !panelRef.current) return;
 
-      gsap.set(overlayRef.current, { opacity: 0, scale: 0 });
-      gsap.set(panelRef.current, { opacity: 0, scale: 0.95 });
+      gsap.set(overlayRef.current, { opacity: 0 });
+      gsap.set(panelRef.current, { opacity: 0 });
 
       gsap
         .timeline()
-        .to(overlayRef.current, { 
-          opacity: 1, 
-          scale: 1, 
-          duration: 0.8, 
-          ease: "power3.inOut" 
-        })
-        .to(
-          panelRef.current,
-          { opacity: 1, scale: 1, duration: 0.6, ease: "power2.out" },
-          "-=0.4"
-        )
+        .to(overlayRef.current, { opacity: 1, duration: 0.35, ease: "power2.out" })
+        .to(panelRef.current, { opacity: 1, duration: 0.3, ease: "power2.out" }, "-=0.12")
         .fromTo(
           ".menu-link",
-          { y: 60, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.8, stagger: 0.08, ease: "power3.out" },
-          "-=0.2"
-        )
-        .fromTo(
-          ".menu-index",
-          { opacity: 0 },
-          { opacity: 1, duration: 0.5, stagger: 0.08 },
-          "<"
-        )
-        .fromTo(
-          ".menu-visual__img",
-          { scale: 1.05 },
-          { scale: 1, duration: 0.9, ease: "power3.out" },
-          "-=0.6"
-        )
-        .fromTo(
-          ".menu-social",
-          { y: 15, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.5, stagger: 0.06 },
-          "-=0.35"
+          { y: 18, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.45, stagger: 0.05, ease: "power3.out" },
+          "-=0.1"
         );
     },
     { dependencies: [isOpen] }
@@ -122,33 +92,50 @@ const Menu = () => {
         onClick={isOpen ? closeMenu : openMenu}
         aria-expanded={isOpen}
         aria-label={isOpen ? "إغلاق القائمة" : "فتح القائمة"}
-        className="menu-toggle fixed bottom-8 left-1/2 -translate-x-1/2 z-[95] inline-flex items-center gap-3 rounded-full bg-white pr-2 pl-5 py-2 shadow-lg"
+        className={`menu-toggle${isOpen ? " menu-toggle--open" : ""}`}
+        dir="rtl"
       >
-        <span className="menu-toggle__icon flex items-center justify-center rounded-full bg-[var(--base-300)] text-[var(--base-100)]">
-          {isOpen ? "✕" : "☰"}
-        </span>
+        <span className="menu-toggle__icon">{isOpen ? "✕" : "☰"}</span>
         <span className="menu-toggle__label">{isOpen ? "إغلاق" : "القائمة"}</span>
       </button>
 
       {isOpen && (
         <div
           ref={overlayRef}
-          className="menu-overlay fixed inset-0 z-[90] bg-[var(--base-300)]"
+          className="menu-overlay"
           onClick={handleOverlayClick}
           role="dialog"
           aria-modal="true"
           aria-label="قائمة التنقل"
         >
-          <div
-            ref={panelRef}
-            className="menu-panel h-full flex flex-col lg:flex-row"
-          >
-            {/* لوحة الروابط */}
-            <nav className="menu-nav flex-1 flex flex-col justify-center px-6 md:px-14 lg:px-20 py-24">
+          <div ref={panelRef} className="menu-panel">
+            <header className="menu-top">
+              <BrandLogo
+                name=""
+                tagline={false}
+                theme="dark"
+                size="sm"
+                imageAlt={BRAND_NAME_AR}
+              />
+              <p className="menu-top__name">{BRAND_FOUNDER_AR}</p>
+            </header>
+
+            <nav className="menu-nav">
               <ul className="menu-nav__list">
                 {navItems.map((item, index) => (
                   <li key={item.path} className="menu-nav__item">
-                    <Link to={item.path} onClick={closeMenu} className="menu-link">
+                    <Link
+                      to={item.path}
+                      onClick={() => {
+                        closeMenu();
+                        if (item.hash) {
+                          window.setTimeout(() => {
+                            document.getElementById(item.hash)?.scrollIntoView({ behavior: "smooth" });
+                          }, 320);
+                        }
+                      }}
+                      className="menu-link"
+                    >
                       <span className="menu-index" dir="ltr">
                         {String(index + 1).padStart(2, "0")}
                       </span>
@@ -157,55 +144,22 @@ const Menu = () => {
                   </li>
                 ))}
               </ul>
-
-              <div className="menu-footer">
-                <div className="menu-social">
-                  <a
-                    href="#"
-                    target="_blank"
-                    rel="noreferrer"
-                    aria-label="LinkedIn"
-                    className="menu-social__link"
-                  >
-                    <FiLinkedin />
-                  </a>
-                  <a
-                    href="#"
-                    target="_blank"
-                    rel="noreferrer"
-                    aria-label="Instagram"
-                    className="menu-social__link"
-                  >
-                    <FiInstagram />
-                  </a>
-                  <a
-                    href="#"
-                    target="_blank"
-                    rel="noreferrer"
-                    aria-label="Twitter"
-                    className="menu-social__link"
-                  >
-                    <FiTwitter />
-                  </a>
-                </div>
-                <p className="menu-footer__text">
-                  مصممة مستقلة موثوقة لتحويل أفكاركم إلى مساحات
-                  تعكس ذوقكم وشخصيتكم
-                </p>
-              </div>
             </nav>
 
-            {/* اللوحة البصرية */}
-            <div className="menu-visual hidden lg:block lg:w-[42%]">
-              <div className="menu-visual__frame">
-                <img
-                  src={menuVisualImg}
-                  alt={`أعمال ${BRAND_NAME_AR}`}
-                  className="menu-visual__img"
-                />
-                <div className="menu-visual__overlay" />
-              </div>
-            </div>
+            <footer className="menu-foot">
+              {BRAND_INSTAGRAM_URL ? (
+                <a
+                  href={BRAND_INSTAGRAM_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="انستغرام"
+                  className="menu-social__link"
+                >
+                  <FiInstagram />
+                </a>
+              ) : null}
+              <p>{BRAND_NAME_AR}</p>
+            </footer>
           </div>
         </div>
       )}

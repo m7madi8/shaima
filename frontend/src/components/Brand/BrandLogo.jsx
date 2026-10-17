@@ -1,14 +1,18 @@
 import React from 'react';
 import './brand.css';
-import logoImg from '../../assets/logo.png';
-import { BRAND_NAME, BRAND_TAGLINE, BRAND_NAME_AR } from '../../constants/brand';
+import {
+    BRAND_NAME,
+    BRAND_TAGLINE,
+    BRAND_NAME_AR,
+    BRAND_LOGO_SRC,
+} from '../../constants/brand';
 
 const BrandLogo = ({
     name = BRAND_NAME,
     theme = 'light',
     size = 'md',
     tagline = true,
-    useImage = false,
+    useImage = true,
     imageAlt = BRAND_NAME_AR,
     className = '',
 }) => {
@@ -17,23 +21,23 @@ const BrandLogo = ({
             {useImage ? (
                 <>
                     <img
-                        src={logoImg}
+                        src={BRAND_LOGO_SRC}
                         alt={imageAlt}
                         className="brand-logo__image"
                     />
-                    {name && (
-                        <span className="brand-logo__name">{name}</span>
-                    )}
-                    {tagline && (
-                        <span className="brand-logo__tagline">{BRAND_TAGLINE}</span>
-                    )}
+                    {name ? (
+                        <span className="brand-logo__name" dir="ltr">{name}</span>
+                    ) : null}
+                    {tagline ? (
+                        <span className="brand-logo__tagline" dir="ltr">{BRAND_TAGLINE}</span>
+                    ) : null}
                 </>
             ) : (
                 <>
-                    <span className="brand-logo__name">{name}</span>
-                    {tagline && (
-                        <span className="brand-logo__tagline">{BRAND_TAGLINE}</span>
-                    )}
+                    <span className="brand-logo__name" dir="ltr">{name}</span>
+                    {tagline ? (
+                        <span className="brand-logo__tagline" dir="ltr">{BRAND_TAGLINE}</span>
+                    ) : null}
                 </>
             )}
         </div>
