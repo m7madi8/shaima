@@ -78,12 +78,6 @@ const Hero = () => {
                     </div>
 
                     <div className="hero-content__bottom">
-                        <h1 className="hero-headline hero-reveal">
-                            <span>عالمي مليان</span>
-                            <span>تفاصيل وجمال</span>
-                            <span>بعبر عنكم</span>
-                        </h1>
-
                         <div className="hero-copy hero-reveal">
                             <RequestCta
                                 service="consultation"
